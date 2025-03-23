@@ -214,7 +214,7 @@
 			/>
 		{/if}
 
-		<div class={`${isSplitView ? 'w-1/2' : 'w-full'} overflow-hidden`}>
+		<div class={`${isSplitView ? 'w-1/2' : 'w-full'} z-0 overflow-hidden`}>
 			<textarea
 				bind:this={editorElement}
 				bind:value={currentFile.content}
@@ -225,7 +225,7 @@
 		</div>
 
 		{#if isSplitView}
-			<div class="h-full w-1/2 overflow-auto border-l border-gray-300 bg-gray-50">
+			<div class="z-0 h-full w-1/2 overflow-auto border-l border-gray-300 bg-gray-50">
 				<MarkdownPreview markdown={currentFile.content} />
 			</div>
 		{/if}

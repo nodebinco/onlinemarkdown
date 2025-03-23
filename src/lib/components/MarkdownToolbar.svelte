@@ -137,7 +137,9 @@
 	};
 </script>
 
-<div class="flex items-center space-x-1 overflow-x-auto border-b border-gray-300 bg-gray-100 p-1">
+<div
+	class="z-10 flex items-center space-x-1 overflow-x-auto overflow-y-hidden border-b border-gray-300 bg-gray-100 p-1"
+>
 	<div class="flex items-center">
 		<button
 			onclick={() => onNewFile?.()}
@@ -168,7 +170,7 @@
 
 	<div class="mx-1 h-6 border-l"></div>
 
-	<div class="relative">
+	<div class="static">
 		<button
 			onclick={() => (showHeadingMenu = !showHeadingMenu)}
 			class="flex cursor-pointer items-center rounded p-1 hover:bg-gray-200"
@@ -179,7 +181,7 @@
 		</button>
 
 		{#if showHeadingMenu}
-			<div class="absolute top-full left-0 z-10 mt-1 rounded border bg-white shadow-lg">
+			<div class="absolute top-18 left-38 z-60 mt-1 w-40 rounded border bg-white shadow-lg">
 				<button
 					onclick={() => {
 						formatHeading(1);
