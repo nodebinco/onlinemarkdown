@@ -20,7 +20,7 @@
 
 {#if open}
 	<div class="fixed inset-0 z-50 flex items-center justify-center rounded-lg">
-		<div class="w-full max-w-md rounded-lg bg-white shadow-md">
+		<div class="w-full max-w-md rounded-lg border border-gray-300 bg-white shadow-md">
 			<div class="border-b border-gray-300 bg-gray-100 p-4">
 				<h2 class="text-lg font-semibold">Insert Image</h2>
 			</div>

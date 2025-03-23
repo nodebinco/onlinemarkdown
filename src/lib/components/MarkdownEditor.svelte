@@ -204,24 +204,22 @@
 
 	<div class="flex flex-1 overflow-hidden">
 		{#if isSidebarOpen}
-			<div class="transition-all duration-300 ease-in-out">
-				<FileSidebar
-					{currentFile}
-					{files}
-					onNewFile={handleNewFile}
-					onDeleteFile={handleDeleteFile}
-					onFileSelect={handleFileSelect}
-					onFileRename={handleFileRename}
-				/>
-			</div>
+			<FileSidebar
+				{currentFile}
+				{files}
+				onNewFile={handleNewFile}
+				onDeleteFile={handleDeleteFile}
+				onFileSelect={handleFileSelect}
+				onFileRename={handleFileRename}
+			/>
 		{/if}
 
-		<div class={`${isSplitView ? 'w-1/2' : 'w-full'} overflow-auto`}>
+		<div class={`${isSplitView ? 'w-1/2' : 'w-full'} overflow-hidden`}>
 			<textarea
 				bind:this={editorElement}
 				bind:value={currentFile.content}
 				on:input={handleContentChange}
-				class="h-[calc(100vh-120px)] w-full resize-none overflow-auto border-none p-4 font-mono text-sm"
+				class="h-full w-full resize-none overflow-auto border-none p-4 font-mono text-sm"
 				spellcheck="false"
 			></textarea>
 		</div>

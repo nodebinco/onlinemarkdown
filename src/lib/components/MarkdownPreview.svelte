@@ -73,8 +73,7 @@
 		font-size: 0.875rem;
 		border-radius: 3px;
 		padding: 0.2em 0.4em;
-		font-family:
-			'Courier New', monospace;
+		font-family: 'Courier New', monospace;
 	}
 
 	:global(.markdown-preview pre code) {

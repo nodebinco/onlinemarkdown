@@ -137,7 +137,7 @@
 	};
 </script>
 
-<div class="flex items-center space-x-1 border-b border-gray-300 bg-gray-100 p-1">
+<div class="flex items-center space-x-1 overflow-x-auto border-b border-gray-300 bg-gray-100 p-1">
 	<div class="flex items-center">
 		<button
 			onclick={() => onNewFile?.()}
