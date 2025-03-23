@@ -31,7 +31,9 @@
 		onToggleFullScreen,
 		onToggleSplitView,
 		onSaveToDisk,
-		onContentChange
+		onContentChange,
+		onUndo,
+		onRedo
 	} = $props();
 
 	let imageDialogOpen = false;
@@ -83,46 +85,45 @@
 	const formatTable = () =>
 		insertText('| Header | Header |\n| ------ | ------ |\n| Cell   | Cell   |\n');
 
-    function handlePrint() {
-    const printWindow = window.open('', '_blank');
-    if (!printWindow) return;
+	const handlePrint = () => {
+		const printWindow = window.open('', '_blank');
+		if (!printWindow) return;
 
-    // Get the HTML content from the markdown preview
-    const previewContent = document.querySelector('.markdown-preview')?.innerHTML || '';
+		// Get the HTML content from the markdown preview
+		const previewContent = document.querySelector('.markdown-preview')?.innerHTML || '';
 
-    // Create a complete HTML document as a single string
-    const htmlContent = [
-      '<!DOCTYPE html>',
-      '<html>',
-      '<head>',
-      '<title>OnlineMarkdown.com</title>',
-      '<style>',
-      'body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; padding: 20px; max-width: 800px; margin: 0 auto; }',
-      'pre { background-color: #f5f5f5; padding: 10px; border-radius: 4px; overflow-x: auto; }',
-      'code { background-color: #f5f5f5; padding: 2px 4px; border-radius: 4px; }',
-      'table { border-collapse: collapse; width: 100%; }',
-      'table, th, td { border: 1px solid #ddd; }',
-      'th, td { padding: 8px; text-align: left; }',
-      'blockquote { border-left: 4px solid #ddd; padding-left: 16px; margin-left: 0; color: #666; }',
-      'img { max-width: 100%; }',
-      '@media print { body { padding: 0; } }',
-      '</style>',
-      '</head>',
-      '<body>',
-      '<div id="content"></div>',
-      '<script>',
-      `document.getElementById("content").innerHTML = ${JSON.stringify(previewContent)};`,
-      'window.onload = function() { window.print(); }',
-      '<\/script>',
-      '</body>',
-      '</html>'
-    ].join('');
+		// Create a complete HTML document as a single string
+		const htmlContent = [
+			'<!DOCTYPE html>',
+			'<html>',
+			'<head>',
+			'<title>OnlineMarkdown.com</title>',
+			'<style>',
+			'body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; padding: 20px; max-width: 800px; margin: 0 auto; }',
+			'pre { background-color: #f5f5f5; padding: 10px; border-radius: 4px; overflow-x: auto; }',
+			'code { background-color: #f5f5f5; padding: 2px 4px; border-radius: 4px; }',
+			'table { border-collapse: collapse; width: 100%; }',
+			'table, th, td { border: 1px solid #ddd; }',
+			'th, td { padding: 8px; text-align: left; }',
+			'blockquote { border-left: 4px solid #ddd; padding-left: 16px; margin-left: 0; color: #666; }',
+			'img { max-width: 100%; }',
+			'@media print { body { padding: 0; } }',
+			'</style>',
+			'</head>',
+			'<body>',
+			'<div id="content"></div>',
+			'<script>',
+			`document.getElementById("content").innerHTML = ${JSON.stringify(previewContent)};`,
+			'window.onload = function() { window.print(); }',
+			'<\/script>',
+			'</body>',
+			'</html>'
+		].join('');
 
-    printWindow.document.open();
-    printWindow.document.write(htmlContent);
-    printWindow.document.close();
-  }
-  
+		printWindow.document.open();
+		printWindow.document.write(htmlContent);
+		printWindow.document.close();
+	};
 </script>
 
 <div class="flex items-center space-x-1 border-b border-gray-300 bg-gray-100 p-1">
@@ -142,11 +143,11 @@
 
 	<div class="mx-1 h-6 border-l"></div>
 
-	<button class="cursor-pointer rounded p-1 hover:bg-gray-200" title="Undo">
+	<button onclick={onUndo} class="cursor-pointer rounded p-1 hover:bg-gray-200" title="Undo">
 		<Undo size={20} />
 	</button>
 
-	<button class="cursor-pointer rounded p-1 hover:bg-gray-200" title="Redo">
+	<button onclick={onRedo} class="cursor-pointer rounded p-1 hover:bg-gray-200" title="Redo">
 		<Redo size={20} />
 	</button>
 

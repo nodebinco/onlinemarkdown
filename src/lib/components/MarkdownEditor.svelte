@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import MarkdownPreview from './MarkdownPreview.svelte';
 	import MarkdownToolbar from './MarkdownToolbar.svelte';
+	import FileSidebar from './FileSidebar.svelte';
 	import { genFileId } from '$lib/utils';
 	export let markdown = '';
 
@@ -14,7 +15,48 @@
 		id: genFileId(),
 		name: 'Untitled',
 		content: markdown,
-		lastModified: Date.now()
+		updatedAt: Date.now()
+	};
+
+	let history: string[] = [];
+	let historyIndex = -1;
+	let debounceTimer: number;
+
+	const handleContentChange = () => {
+		if (debounceTimer) {
+			clearTimeout(debounceTimer);
+		}
+
+		debounceTimer = setTimeout(() => {
+			history = history.slice(0, historyIndex + 1);
+			history.push(currentFile.content);
+			historyIndex++;
+		}, 500);
+	};
+
+	const handleUndo = () => {
+		if (historyIndex > 0) {
+			historyIndex--;
+			currentFile.content = history[historyIndex];
+			markdown = currentFile.content;
+		}
+	};
+
+	const handleRedo = () => {
+		if (historyIndex < history.length - 1) {
+			historyIndex++;
+			currentFile.content = history[historyIndex];
+			markdown = currentFile.content;
+		}
+	};
+
+	const handleFullScreen = () => {
+		isFullScreen = !isFullScreen;
+		if (isFullScreen) {
+			document.documentElement.requestFullscreen();
+		} else {
+			document.exitFullscreen();
+		}
 	};
 
 	onMount(() => {
@@ -23,9 +65,22 @@
 		loadFiles();
 		const interval = setInterval(saveFiles, 5000);
 
+		history = [currentFile.content];
+		historyIndex = 0;
+
+		const handleKeyDown = (e: KeyboardEvent) => {
+			if (e.key === 'Escape' && document.fullscreenElement) {
+				handleFullScreen();
+			}
+		};
+
+		document.addEventListener('keydown', handleKeyDown);
+
 		return () => {
 			clearInterval(interval);
+			clearTimeout(debounceTimer);
 			saveFiles();
+			document.removeEventListener('keydown', handleKeyDown);
 		};
 	});
 
@@ -37,7 +92,7 @@
 				const parsedFiles = JSON.parse(storedFiles);
 				if (Array.isArray(parsedFiles) && parsedFiles.length > 0) {
 					files = parsedFiles;
-					currentFile = [...parsedFiles].sort((a, b) => b.lastModified - a.lastModified)[0];
+					currentFile = [...parsedFiles].sort((a, b) => b.updatedAt - a.updatedAt)[0];
 				} else {
 					files = [currentFile];
 				}
@@ -50,7 +105,7 @@
 	const saveFiles = () => {
 		try {
 			const fileIndex = files.findIndex((f) => f.id === currentFile.id);
-			const updatedFile = { ...currentFile, lastModified: Date.now() };
+			const updatedFile = { ...currentFile, updatedAt: Date.now() };
 
 			let updatedFiles;
 			if (fileIndex >= 0) {
@@ -68,7 +123,61 @@
 	};
 
 	const handleSaveToDisk = () => {
-		console.log('Saving to disk');
+		const blob = new Blob([currentFile.content], { type: 'text/markdown' });
+		const url = URL.createObjectURL(blob);
+
+		const a = document.createElement('a');
+		a.href = url;
+		a.download = `${currentFile.name}.md`;
+		document.body.appendChild(a);
+		a.click();
+
+		document.body.removeChild(a);
+		URL.revokeObjectURL(url);
+	};
+
+	const handleNewFile = () => {
+		const newFile = {
+			id: genFileId(),
+			name: 'Untitled',
+			content: '',
+			createdAt: Date.now(),
+			updatedAt: Date.now()
+		};
+		files = [...files, newFile];
+		currentFile = newFile;
+		markdown = '';
+		history = [''];
+		historyIndex = 0;
+	};
+
+	const handleDeleteFile = (fileId: string) => {
+		files = files.filter((f) => f.id !== fileId);
+		if (currentFile.id === fileId && files.length > 0) {
+			currentFile = files[0];
+			markdown = currentFile.content;
+		} else if (files.length === 0) {
+			handleNewFile();
+		}
+	};
+
+	const handleFileSelect = (file: any) => {
+		currentFile = file;
+		markdown = file.content;
+		history = [file.content];
+		historyIndex = 0;
+	};
+
+	const handleFileRename = (file: any) => {
+		const fileIndex = files.findIndex((f) => f.id === file.id);
+		if (fileIndex !== -1) {
+			files = files.map((f) =>
+				f.id === file.id ? { ...f, name: file.name, updatedAt: Date.now() } : f
+			);
+			if (currentFile.id === file.id) {
+				currentFile = { ...currentFile, name: file.name };
+			}
+		}
 	};
 </script>
 
@@ -85,12 +194,27 @@
 			markdown = newContent;
 		}}
 		onToggleSplitView={() => (isSplitView = !isSplitView)}
-		onToggleFullScreen={() => (isFullScreen = !isFullScreen)}
+		onToggleFullScreen={handleFullScreen}
 		onToggleSidebar={() => (isSidebarOpen = !isSidebarOpen)}
 		onSaveToDisk={handleSaveToDisk}
+		onUndo={handleUndo}
+		onRedo={handleRedo}
 	/>
 
 	<div class="flex flex-1 overflow-hidden">
+		{#if isSidebarOpen}
+			<div class="transition-all duration-300 ease-in-out">
+				<FileSidebar
+					{currentFile}
+					{files}
+					onNewFile={handleNewFile}
+					onDeleteFile={handleDeleteFile}
+					onFileSelect={handleFileSelect}
+					onFileRename={handleFileRename}
+				/>
+			</div>
+		{/if}
+
 		<div class={`${isSplitView ? 'w-1/2' : 'w-full'} overflow-auto`}>
 			<textarea
 				bind:this={editorElement}
