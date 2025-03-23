@@ -285,7 +285,7 @@ Start writing Markdown at [Online Markdown Editor](https://onlinemarkdown.com) a
   };
 </script>
 
-<div class="flex h-[calc(100vh-50px)] flex-1 flex-col overflow-hidden">
+<div class="flex h-[calc(100vh-60px)] flex-1 flex-col overflow-hidden">
   <MarkdownToolbar
     bind:editorElement
     markdown={currentFile.content}

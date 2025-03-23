@@ -23,7 +23,7 @@
           <img src="/logo.svg" alt="Markdown Editor" class="h-6 w-6" />
         </a>
       </div>
-      <span class="font-semibold"><a href="/">Online Markdown Editor</a></span>
+      <span class="font-semibold"><a href="/">Online Markdown</a></span>
     </div>
 
     <div class="flex items-center">
@@ -31,6 +31,12 @@
         <a href="/getting-started" class="hover:text-zinc-300">Getting Started</a>
         <a href="/syntax" class="hover:text-zinc-300">Syntax</a>
         <a href="/cheat-sheet" class="hover:text-zinc-300">Cheat Sheet</a>
+
+        <a
+          href="/"
+          class="inline-block rounded-lg bg-blue-600 px-6 py-2 text-white no-underline transition hover:bg-blue-700"
+          >Open Editor</a
+        >
       </nav>
 
       <button
@@ -53,6 +59,12 @@
         <a href="/getting-started" class="rounded px-4 py-2 hover:bg-zinc-700">Getting Started</a>
         <a href="/syntax" class="rounded px-4 py-2 hover:bg-zinc-700">Syntax</a>
         <a href="/cheat-sheet" class="rounded px-4 py-2 hover:bg-zinc-700">Cheat Sheet</a>
+
+        <a
+          href="/"
+          class="inline-block rounded-lg bg-blue-600 px-6 py-2 text-white no-underline transition hover:bg-blue-700"
+          >Open Editor</a
+        >
       </nav>
     </div>
   {/if}
