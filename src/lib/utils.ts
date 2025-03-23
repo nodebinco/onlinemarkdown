@@ -54,3 +54,7 @@ export const flyAndScale = (
 		easing: cubicOut
 	};
 };
+
+export const genFileId = () => {
+	return Math.random().toString(36).substring(2, 15);
+};
