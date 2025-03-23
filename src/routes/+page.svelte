@@ -2,32 +2,31 @@
   import MarkdownEditor from '$lib/components/MarkdownEditor.svelte';
 </script>
 
-<div class="flex h-screen flex-col">
-  <header class="flex items-center justify-between bg-zinc-800 p-2 text-white">
-    <div class="navbar flex items-center space-x-2">
-      <div class="h-6 w-6 rounded bg-zinc-700">
-        <a
-          href="/"
-          class="flex h-full w-full items-center justify-center rounded hover:bg-zinc-700"
-          aria-label="Markdown Editor"
-        >
-          <svg class="h-5 w-5" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="100" height="100" rx="15" fill="black" />
-            <path d="M20 70V30H35L50 50L65 30H80V70H65V45L50 65L35 45V70H20Z" fill="white" />
-          </svg>
-        </a>
-      </div>
-      <span class="font-semibold"><a href="/">Online Markdown Editor</a></span>
-    </div>
-  </header>
-  <MarkdownEditor />
-</div>
+<svelte:head>
+  <title>Online Markdown Editor - Simple, Fast & Live Preview</title>
+  <meta
+    name="description"
+    content="Write and preview Markdown instantly with our Online Markdown Editor. Supports GitHub Flavored Markdown (GFM), tables, code blocks, and Mermaid diagrams. No installation required—just start typing!"
+  />
+  <meta
+    name="keywords"
+    content="Markdown editor, online markdown, markdown preview, GitHub Flavored Markdown, Markdown to HTML, live markdown editor, code blocks, tables, mermaid diagrams, svelte markdown editor, free markdown tool"
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta property="og:title" content="Online Markdown Editor - Simple, Fast & Live Preview" />
+  <meta
+    property="og:description"
+    content="Write and preview Markdown instantly with our Online Markdown Editor. Supports GitHub Flavored Markdown (GFM), tables, code blocks, and Mermaid diagrams."
+  />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://onlinemarkdown.com" />
+  <meta property="og:image" content="/logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Online Markdown Editor" />
+  <meta
+    name="twitter:description"
+    content="Fast, simple, and live Markdown editing with GitHub Flavored Markdown support."
+  />
+</svelte:head>
 
-<style>
-  .navbar {
-    font-family:
-      -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
-      'Helvetica Neue', sans-serif;
-    color: #ffffff;
-  }
-</style>
+<MarkdownEditor />

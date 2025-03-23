@@ -4,67 +4,147 @@
   import MarkdownToolbar from './MarkdownToolbar.svelte';
   import FileSidebar from './FileSidebar.svelte';
   import { genFileId } from '$lib/utils';
-  let markdown = `# Enhanced Markdown Editor
 
-Welcome to the enhanced markdown editor with file management!
+  interface File {
+    id: string;
+    name: string;
+    content: string;
+    createdAt: number;
+    updatedAt: number;
+  }
 
-## Features
+  let markdown = `# Online Markdown Editor - The Best Free Markdown Tool 🚀
 
-- **File Management**: Create, edit, rename, and delete files
-- **Auto-save**: Your work is automatically saved to localStorage
-- **Image Insertion**: Click the image button to add images with a popup dialog
-- **Link Creation**: Click the link button to add links with a popup dialog
-- **Save to Disk**: Download your markdown files to your computer
-- **Print**: Print your formatted markdown document
-- **Full Screen**: Edit in distraction-free full screen mode
-- **Headings**: Format text with H1-H6 headings
-- **Text Formatting**: Bold, italic, strikethrough, superscript, and subscript
+Experience the **fastest**, *most intuitive*, and ~~hassle-free~~ Markdown editor online!  
+Create and preview Markdown instantly with **GitHub Flavored Markdown (GFM)** support.  
 
-## Markdown Examples
+## ✨ Features of Online Markdown Editor
 
-### Text Formatting
+- **Live Preview**: Instantly see how your Markdown renders  
+- **Auto-save**: Never lose your work with local storage backup  
+- **File Management**: Create, edit, rename, and delete files easily  
+- **Text Formatting**: Supports **bold**, *italic*, ~~strikethrough~~, <sup>superscript</sup>, and <sub>subscript</sub>  
+- **Lists**: Easily create **bullet lists** and **numbered lists**  
+- **Code Blocks**: Format your code with syntax highlighting  
+- **Tables**: Create structured data with Markdown tables  
+- **Mermaid Diagrams**: Visualize concepts with flowcharts and graphs  
+- **Image & Link Insertion**: Easily add images and links  
+- **Print & Download**: Save as a Markdown file or print directly  
 
-You can make text **bold**, *italic*, or ~~strikethrough~~.
+---
 
-You can also use <sup>superscript</sup> and <sub>subscript</sub>.
+## 📌 Markdown Syntax Guide  
 
-### Lists
+### Headings  
 
-Unordered list:
-- Item 1
-- Item 2
-- Item 3
+# H1 - Largest Heading  
+## H2 - Second Largest  
+### H3 - Subheading  
+#### H4 - Smaller Heading  
+##### H5 - Tiny Heading  
+###### H6 - Smallest Heading  
 
-Ordered list:
-1. First item
-2. Second item
-3. Third item
+### ✍️ Text Formatting  
 
-### Code
+- **Bold** → \`**Bold**\` → **Bold**  
+- *Italic* → \`*Italic*\` → *Italic*  
+- ~~Strikethrough~~ → \`~~Strikethrough~~\` → ~~Strikethrough~~  
+- <sup>Superscript</sup> → \`<sup>Superscript</sup>\`  
+- <sub>Subscript</sub> → \`<sub>Subscript</sub>\`  
 
-Inline \`code\` and code blocks:
+### 📋 Lists  
 
+#### Bullet List  
+- Item 1  
+- Item 2  
+- Item 3  
+
+#### Numbered List  
+1. First Item  
+2. Second Item  
+3. Third Item  
+
+### 🔗 Links & Images  
+
+[Visit Online Markdown Editor](https://onlinemarkdown.com)  
+
+![Markdown Logo](https://upload.wikimedia.org/wikipedia/commons/4/48/Markdown-mark.svg)
+
+### 📝 Blockquotes
+
+> "Markdown is a lightweight markup language for creating formatted text using a plain-text editor."
+– John Gruber
+
+### Code Blocks
+
+#### JavaScript Example
 \`\`\`javascript
-function hello() {
-  console.log("Hello, world!");
+function greet(name) {
+  console.log(\`Hello, \${name}!\`);
 }
+
+// Call the function
+greet('Markdown');
 \`\`\`
 
-### Tables
+#### Python Example
+\`\`\`python
+def calculate_sum(numbers):
+    return sum(numbers)
 
-| Header 1 | Header 2 |
-| -------- | -------- |
-| Cell 1   | Cell 2   |
-| Cell 3   | Cell 4   |
+# Example usage
+result = calculate_sum([1, 2, 3, 4, 5])
+print(f"The sum is: {result}")
+\`\`\`
 
-### Mermaid Diagrams
+### 📊 Tables
+| Feature | Supported |
+| ------------- | ------ |
+| Bold/Italic   | ✅ Yes |
+| Lists         | ✅ Yes |
+| Code Blocks   | ✅ Yes |
+| Tables        | ✅ Yes |
+| Image         | ✅ Yes |
+| Link          | ✅ Yes |
 
+### 📢 Try It Now!
+
+Start writing Markdown at [Online Markdown Editor](https://onlinemarkdown.com) and boost your productivity today! 🚀
+
+### 🎨 Mermaid Diagrams
+
+#### Flowchart
 \`\`\`mermaid
-graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
+graph TD
+    A[Start] --> B{Is it working?}
+    B -->|Yes| C[Great!]
+    B -->|No| D[Debug]
+    D --> B
+\`\`\`
+
+#### Sequence Diagram
+\`\`\`mermaid
+sequenceDiagram
+    participant User
+    participant Editor
+    participant Preview
+    
+    User->>Editor: Type markdown
+    Editor->>Preview: Update preview
+    Preview-->>User: Show rendered content
+\`\`\`
+
+#### Gantt Chart
+\`\`\`mermaid
+gantt
+    title Project Timeline
+    dateFormat  YYYY-MM-DD
+    section Planning
+    Requirements    :a1, 2024-01-01, 7d
+    Design         :a2, after a1, 5d
+    section Development
+    Coding         :a3, after a2, 14d
+    Testing        :a4, after a3, 7d
 \`\`\`
 `;
 
@@ -72,8 +152,8 @@ graph TD;
   let isSidebarOpen = false;
   let isFullScreen = false;
   let editorElement: HTMLTextAreaElement;
-  let files = [];
-  let currentFile = {
+  let files: File[] = [];
+  let currentFile: File = {
     id: genFileId(),
     name: 'Untitled',
     content: markdown,
@@ -83,7 +163,7 @@ graph TD;
 
   let history: string[] = [];
   let historyIndex = -1;
-  let debounceTimer: number;
+  let debounceTimer: ReturnType<typeof setTimeout>;
 
   const handleContentChange = () => {
     if (debounceTimer) {
@@ -148,9 +228,8 @@ graph TD;
   const loadFiles = () => {
     try {
       const storedFiles = localStorage.getItem('markdown-editor-files');
-      console.log(storedFiles);
       if (storedFiles) {
-        const parsedFiles = JSON.parse(storedFiles);
+        const parsedFiles = JSON.parse(storedFiles) as File[];
         if (Array.isArray(parsedFiles) && parsedFiles.length > 0) {
           files = parsedFiles;
           currentFile = [...parsedFiles].sort((a, b) => b.updatedAt - a.updatedAt)[0];
@@ -168,7 +247,7 @@ graph TD;
       const fileIndex = files.findIndex((f) => f.id === currentFile.id);
       const updatedFile = { ...currentFile, updatedAt: Date.now() };
 
-      let updatedFiles;
+      let updatedFiles: File[];
       if (fileIndex >= 0) {
         updatedFiles = [...files];
         updatedFiles[fileIndex] = updatedFile;
@@ -198,7 +277,7 @@ graph TD;
   };
 
   const handleNewFile = () => {
-    const newFile = {
+    const newFile: File = {
       id: genFileId(),
       name: 'Untitled',
       content: '',
@@ -222,14 +301,14 @@ graph TD;
     }
   };
 
-  const handleFileSelect = (file: any) => {
+  const handleFileSelect = (file: File) => {
     currentFile = file;
     markdown = file.content;
     history = [file.content];
     historyIndex = 0;
   };
 
-  const handleFileRename = (file: any) => {
+  const handleFileRename = (file: File) => {
     const fileIndex = files.findIndex((f) => f.id === file.id);
     if (fileIndex !== -1) {
       files = files.map((f) =>
@@ -242,7 +321,7 @@ graph TD;
   };
 </script>
 
-<div class="flex h-[calc(100vh-200px)] flex-1 flex-col overflow-hidden">
+<div class="flex h-[calc(100vh-50px)] flex-1 flex-col overflow-hidden">
   <MarkdownToolbar
     bind:editorElement
     markdown={currentFile.content}
@@ -250,22 +329,22 @@ graph TD;
     {isFullScreen}
     {isSidebarOpen}
     currentFileName={currentFile.name}
-    onContentChange={(newContent) => {
-      currentFile.content = newContent;
-      markdown = newContent;
+    on:contentChange={(event) => {
+      currentFile.content = event.detail;
+      markdown = event.detail;
     }}
-    onToggleSplitView={() => (isSplitView = !isSplitView)}
-    onToggleFullScreen={handleFullScreen}
-    onToggleSidebar={() => {
+    on:toggleSplitView={() => (isSplitView = !isSplitView)}
+    on:toggleFullScreen={handleFullScreen}
+    on:toggleSidebar={() => {
       isSidebarOpen = !isSidebarOpen;
       if (window.innerWidth < 768) {
         isSplitView = !isSidebarOpen;
       }
     }}
-    onSaveToDisk={handleSaveToDisk}
-    onUndo={handleUndo}
-    onRedo={handleRedo}
-    onNewFile={handleNewFile}
+    on:saveToDisk={handleSaveToDisk}
+    on:undo={handleUndo}
+    on:redo={handleRedo}
+    on:newFile={handleNewFile}
   />
 
   <div class="flex flex-1 overflow-hidden">
