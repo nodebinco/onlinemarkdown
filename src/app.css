@@ -59,3 +59,309 @@ body.overflow-hidden {
     white-space: pre-wrap;
   }
 }
+.markdown-preview {
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+    'Helvetica Neue', sans-serif;
+  line-height: 1.6;
+  color: #333;
+}
+
+.markdown-preview h1,
+.markdown-preview h2,
+.markdown-preview h3,
+.markdown-preview h4,
+.markdown-preview h5,
+.markdown-preview h6 {
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+}
+
+.markdown-preview h1 {
+  font-size: 2em;
+  border-bottom: 1px solid #eaecef;
+  padding-bottom: 0.3em;
+}
+
+.markdown-preview h2 {
+  font-size: 1.5em;
+  border-bottom: 1px solid #eaecef;
+  padding-bottom: 0.3em;
+}
+
+.markdown-preview pre {
+  background-color: #f6f8fa;
+  border-radius: 3px;
+  padding: 16px;
+  overflow: auto;
+  position: relative;
+}
+
+.markdown-preview pre code {
+  background-color: transparent;
+  padding: 0;
+  font-family: 'Courier New', monospace;
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
+
+.markdown-preview .hljs {
+  background: transparent;
+  padding: 0;
+}
+
+.markdown-preview .mermaid {
+  margin: 1em 0;
+  text-align: center;
+}
+
+.markdown-preview .mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.markdown-preview code {
+  background-color: rgba(27, 31, 35, 0.05);
+  color: #333000;
+  font-size: 0.875rem;
+  border-radius: 3px;
+  padding: 0.2em 0.4em;
+  font-family: 'Courier New', monospace;
+}
+
+.markdown-preview blockquote {
+  padding: 0 1em;
+  color: #6a737d;
+  border-left: 0.25em solid #dfe2e5;
+}
+
+.markdown-preview table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.markdown-preview table th,
+.markdown-preview table td {
+  padding: 6px 13px;
+  border: 1px solid #dfe2e5;
+}
+
+.markdown-preview table tr {
+  background-color: #fff;
+  border-top: 1px solid #c6cbd1;
+}
+
+.markdown-preview table tr:nth-child(2n) {
+  background-color: #f6f8fa;
+}
+
+/* Mermaid Diagram Styles */
+.markdown-preview .mermaid-diagram {
+  margin: 1em 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.markdown-preview .mermaid-header {
+  background-color: #f0f0f0;
+  padding: 0.5em 1em;
+  border-bottom: 1px solid #ddd;
+  font-size: 0.9em;
+  color: #333;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.markdown-preview .mermaid-title {
+  display: flex;
+  align-items: center;
+}
+
+.markdown-preview .mermaid-title::before {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-color: #569cd6;
+  margin-right: 8px;
+  border-radius: 3px;
+}
+
+.markdown-preview .mermaid-code {
+  background-color: #f8f8f8;
+  padding: 1em;
+  overflow-x: auto;
+}
+
+.markdown-preview .mermaid-code pre {
+  margin: 0;
+  background-color: transparent;
+}
+
+.markdown-preview .mermaid-code code {
+  display: block;
+  color: #333;
+  background-color: transparent;
+  padding: 0;
+  white-space: pre;
+}
+
+.markdown-preview .hljs {
+  background: transparent;
+  padding: 0;
+  color: #1e1e1e;
+}
+
+.markdown-preview .hljs-keyword {
+  color: #ff6a00;
+  font-weight: bold;
+}
+
+.markdown-preview .hljs-title {
+  color: #ffd700;
+  font-weight: bold;
+}
+
+.markdown-preview .hljs-title.function_ {
+  color: #005cc5;
+}
+
+.markdown-preview .hljs-params {
+  color: #005f87;
+}
+
+.markdown-preview .hljs-string {
+  color: #d10000;
+  font-weight: bold;
+}
+
+.markdown-preview .hljs-comment {
+  color: #008000;
+  font-style: italic;
+}
+
+.markdown-preview .hljs-number {
+  color: #0000ff;
+}
+
+.markdown-preview .hljs-built_in {
+  color: #00b7eb;
+}
+
+.markdown-preview .hljs-variable {
+  color: #a31515;
+}
+
+.markdown-preview .hljs-subst {
+  color: #b4009e;
+}
+
+.markdown-preview .hljs-literal {
+  color: #ff4500;
+}
+
+.markdown-preview .hljs-type {
+  color: #2b91af;
+  font-weight: bold;
+}
+
+.markdown-preview .hljs-symbol {
+  color: #6600cc;
+}
+
+.markdown-preview .hljs-punctuation {
+  color: #333;
+}
+
+.markdown-preview .hljs-property {
+  color: #005cc5;
+}
+
+.markdown-preview .hljs-operator {
+  color: #ff00ff;
+  font-weight: bold;
+}
+
+.markdown-preview .hljs-decorator {
+  color: #ff1493;
+}
+
+.markdown-preview .hljs-meta {
+  color: #ff4500;
+}
+
+.markdown-preview .hljs-tag {
+  color: #005cc5;
+}
+
+.markdown-preview .hljs-attr {
+  color: #ff1493;
+}
+
+.markdown-preview .hljs-section {
+  color: #dcdcaa;
+}
+
+.markdown-preview .hljs-emphasis {
+  font-style: italic;
+}
+
+.markdown-preview .hljs-strong {
+  font-weight: bold;
+}
+
+.markdown-preview .hljs-addition {
+  color: #008000;
+  font-weight: bold;
+}
+
+.markdown-preview .hljs-deletion {
+  color: #ff0000;
+  font-weight: bold;
+}
+
+.markdown-preview .hljs-selector-tag {
+  color: #000080;
+}
+
+.markdown-preview .hljs-selector-id {
+  color: #800000;
+}
+
+.markdown-preview .hljs-selector-class {
+  color: #007700;
+}
+
+.markdown-preview .hljs-link {
+  color: #005cc5;
+  text-decoration: underline;
+}
+
+.markdown-preview .hljs-char {
+  color: #ff4500;
+}
+
+.markdown-preview .hljs-escape {
+  color: #ff4500;
+}
+
+.markdown-preview .hljs-regexp {
+  color: #ff0000;
+}
+
+.markdown-preview .hljs-doctag {
+  color: #ff1493;
+}
+
+.markdown-preview .hljs-name {
+  color: #005cc5;
+}
+
+.markdown-preview .hljs-namespace {
+  color: #2b91af;
+}
