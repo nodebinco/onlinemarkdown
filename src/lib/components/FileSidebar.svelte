@@ -3,8 +3,8 @@
 
 	let { currentFile, files, onNewFile, onDeleteFile, onFileSelect, onFileRename } = $props();
 
-	let editingFileId: string | null = null;
-	let editingFileName = '';
+	let editingFileId: string | null = $state(null);
+	let editingFileName = $state('');
 
 	let sortedFiles = $derived([...files].sort((a, b) => b.createdAt - a.createdAt));
 
@@ -28,6 +28,10 @@
 	const cancelEditing = () => {
 		editingFileId = null;
 		editingFileName = '';
+	};
+
+	const handleDoubleClick = (file: any) => {
+		startEditing(file);
 	};
 </script>
 
@@ -57,19 +61,26 @@
 						class={`border-b border-gray-300 p-2 hover:bg-gray-200 ${currentFile.id === file.id ? 'bg-gray-300' : ''}`}
 					>
 						{#if editingFileId === file.id}
-							<div class="flex items-center">
+							<div class="flex items-center gap-2">
 								<input
 									bind:value={editingFileName}
 									class="h-8 flex-1 rounded border border-gray-300 px-2 text-sm"
+									onkeydown={(e) => {
+										if (e.key === 'Enter') {
+											handleRenameFile(file.id);
+										} else if (e.key === 'Escape') {
+											cancelEditing();
+										}
+									}}
 								/>
 								<button
-									class="flex h-8 w-8 cursor-pointer items-center justify-center"
+									class="flex h-8 w-8 cursor-pointer items-center justify-center rounded hover:bg-gray-200"
 									onclick={() => handleRenameFile(file.id)}
 								>
 									<Check size={16} />
 								</button>
 								<button
-									class="flex h-8 w-8 cursor-pointer items-center justify-center"
+									class="flex h-8 w-8 cursor-pointer items-center justify-center rounded hover:bg-gray-200"
 									onclick={cancelEditing}
 								>
 									<X size={16} />
@@ -80,19 +91,20 @@
 								<button
 									class="flex flex-1 cursor-pointer items-center text-left"
 									onclick={() => onFileSelect?.(file)}
+									ondblclick={() => handleDoubleClick(file)}
 								>
 									<FileText size={16} class="mr-2 flex-shrink-0" />
-									<span class="truncate">{file.name}</span>
+									<span class="max-w-[150px] truncate">{file.name}</span>
 								</button>
 								<div class="flex opacity-0 transition-opacity group-hover:opacity-100">
 									<button
-										class="flex h-6 w-6 cursor-pointer items-center justify-center"
+										class="flex h-6 w-6 cursor-pointer items-center justify-center rounded hover:bg-gray-200"
 										onclick={() => startEditing(file)}
 									>
 										<Pencil size={12} />
 									</button>
 									<button
-										class="flex h-6 w-6 cursor-pointer items-center justify-center text-red-500"
+										class="flex h-6 w-6 cursor-pointer items-center justify-center rounded text-red-500 hover:bg-gray-200"
 										onclick={(e) => {
 											e.stopPropagation();
 											onDeleteFile?.(file.id);

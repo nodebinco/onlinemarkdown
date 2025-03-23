@@ -19,6 +19,8 @@
 		Save,
 		SplitSquareVertical
 	} from 'lucide-svelte';
+	import ImageDialog from './ImageDialog.svelte';
+	import LinkDialog from './LinkDialog.svelte';
 
 	let {
 		editorElement,
@@ -33,13 +35,14 @@
 		onSaveToDisk,
 		onContentChange,
 		onUndo,
-		onRedo
+		onRedo,
+		onNewFile
 	} = $props();
 
-	let imageDialogOpen = false;
-	let linkDialogOpen = false;
-	let showHeadingMenu = false;
-	let selectedText = '';
+	let imageDialogOpen = $state(false);
+	let linkDialogOpen = $state(false);
+	let showHeadingMenu = $state(false);
+	let selectedText = $state('');
 
 	const getSelectedText = () => {
 		if (!editorElement) return '';
@@ -89,10 +92,8 @@
 		const printWindow = window.open('', '_blank');
 		if (!printWindow) return;
 
-		// Get the HTML content from the markdown preview
 		const previewContent = document.querySelector('.markdown-preview')?.innerHTML || '';
 
-		// Create a complete HTML document as a single string
 		const htmlContent = [
 			'<!DOCTYPE html>',
 			'<html>',
@@ -124,11 +125,25 @@
 		printWindow.document.write(htmlContent);
 		printWindow.document.close();
 	};
+
+	const handleImageInsert = ({ url, alt }: { url: string; alt: string }) => {
+		insertText(`![${alt}](${url})`);
+		imageDialogOpen = false;
+	};
+
+	const handleLinkInsert = ({ url, text }: { url: string; text: string }) => {
+		insertText(`[${text}](${url})`);
+		linkDialogOpen = false;
+	};
 </script>
 
 <div class="flex items-center space-x-1 border-b border-gray-300 bg-gray-100 p-1">
 	<div class="flex items-center">
-		<button class="rounded p-1 hover:bg-gray-200" title="File">
+		<button
+			onclick={() => onNewFile?.()}
+			class="cursor-pointer rounded p-1 hover:bg-gray-200"
+			title="New File"
+		>
 			<File size={20} />
 		</button>
 
@@ -159,35 +174,8 @@
 			class="flex cursor-pointer items-center rounded p-1 hover:bg-gray-200"
 			title="Headings"
 		>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				width="20"
-				height="20"
-				viewBox="0 0 24 24"
-				fill="none"
-				stroke="currentColor"
-				stroke-width="2"
-				stroke-linecap="round"
-				stroke-linejoin="round"
-			>
-				<path d="M6 12h12"></path>
-				<path d="M6 20V4"></path>
-				<path d="M18 20V4"></path>
-			</svg>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				width="16"
-				height="16"
-				viewBox="0 0 24 24"
-				fill="none"
-				stroke="currentColor"
-				stroke-width="2"
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				class="ml-1"
-			>
-				<polyline points="6 9 12 15 18 9"></polyline>
-			</svg>
+			<Heading size={20} />
+			<ChevronDown size={16} class="ml-1" />
 		</button>
 
 		{#if showHeadingMenu}
@@ -329,7 +317,10 @@
 	</button>
 
 	<button
-		onclick={() => (linkDialogOpen = true)}
+		onclick={() => {
+			selectedText = getSelectedText();
+			linkDialogOpen = true;
+		}}
 		class="cursor-pointer rounded p-1 hover:bg-gray-200"
 		title="Link"
 	>
@@ -337,7 +328,9 @@
 	</button>
 
 	<button
-		onclick={() => (imageDialogOpen = true)}
+		onclick={() => {
+			imageDialogOpen = true;
+		}}
 		class="cursor-pointer rounded p-1 hover:bg-gray-200"
 		title="Image"
 	>
@@ -382,3 +375,20 @@
 		</button>
 	</div>
 </div>
+
+{#if imageDialogOpen}
+	<ImageDialog
+		open={imageDialogOpen}
+		onInsert={handleImageInsert}
+		onClose={() => (imageDialogOpen = false)}
+	/>
+{/if}
+
+{#if linkDialogOpen}
+	<LinkDialog
+		open={linkDialogOpen}
+		{selectedText}
+		onInsert={handleLinkInsert}
+		onClose={() => (linkDialogOpen = false)}
+	/>
+{/if}

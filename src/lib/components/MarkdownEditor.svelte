@@ -199,6 +199,7 @@
 		onSaveToDisk={handleSaveToDisk}
 		onUndo={handleUndo}
 		onRedo={handleRedo}
+		onNewFile={handleNewFile}
 	/>
 
 	<div class="flex flex-1 overflow-hidden">

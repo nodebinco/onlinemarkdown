@@ -74,7 +74,7 @@ graph TD;
 	<header class="flex items-center justify-between bg-zinc-800 p-2 text-white">
 		<div class="flex items-center space-x-2">
 			<div class="h-6 w-6 rounded bg-zinc-700"></div>
-			<span>Markdown Editor</span>
+			<span>Online Markdown Editor</span>
 		</div>
 		<div class="flex items-center space-x-2">
 			<a
