@@ -4,7 +4,69 @@
 	import MarkdownToolbar from './MarkdownToolbar.svelte';
 	import FileSidebar from './FileSidebar.svelte';
 	import { genFileId } from '$lib/utils';
-	export let markdown = '';
+	let markdown = `# Enhanced Markdown Editor
+
+Welcome to the enhanced markdown editor with file management!
+
+## Features
+
+- **File Management**: Create, edit, rename, and delete files
+- **Auto-save**: Your work is automatically saved to localStorage
+- **Image Insertion**: Click the image button to add images with a popup dialog
+- **Link Creation**: Click the link button to add links with a popup dialog
+- **Save to Disk**: Download your markdown files to your computer
+- **Print**: Print your formatted markdown document
+- **Full Screen**: Edit in distraction-free full screen mode
+- **Headings**: Format text with H1-H6 headings
+- **Text Formatting**: Bold, italic, strikethrough, superscript, and subscript
+
+## Markdown Examples
+
+### Text Formatting
+
+You can make text **bold**, *italic*, or ~~strikethrough~~.
+
+You can also use <sup>superscript</sup> and <sub>subscript</sub>.
+
+### Lists
+
+Unordered list:
+- Item 1
+- Item 2
+- Item 3
+
+Ordered list:
+1. First item
+2. Second item
+3. Third item
+
+### Code
+
+Inline \`code\` and code blocks:
+
+\`\`\`javascript
+function hello() {
+  console.log("Hello, world!");
+}
+\`\`\`
+
+### Tables
+
+| Header 1 | Header 2 |
+| -------- | -------- |
+| Cell 1   | Cell 2   |
+| Cell 3   | Cell 4   |
+
+### Mermaid Diagrams
+
+\`\`\`mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+\`\`\`
+`;
 
 	let isSplitView = true;
 	let isSidebarOpen = false;
@@ -15,6 +77,7 @@
 		id: genFileId(),
 		name: 'Untitled',
 		content: markdown,
+		createdAt: Date.now(),
 		updatedAt: Date.now()
 	};
 
@@ -60,8 +123,6 @@
 	};
 
 	onMount(() => {
-		console.log('onMount');
-
 		loadFiles();
 		const interval = setInterval(saveFiles, 5000);
 
@@ -195,7 +256,12 @@
 		}}
 		onToggleSplitView={() => (isSplitView = !isSplitView)}
 		onToggleFullScreen={handleFullScreen}
-		onToggleSidebar={() => (isSidebarOpen = !isSidebarOpen)}
+		onToggleSidebar={() => {
+			isSidebarOpen = !isSidebarOpen;
+			if (window.innerWidth < 768) {
+				isSplitView = !isSidebarOpen;
+			}
+		}}
 		onSaveToDisk={handleSaveToDisk}
 		onUndo={handleUndo}
 		onRedo={handleRedo}

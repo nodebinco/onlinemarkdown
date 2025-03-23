@@ -158,6 +158,14 @@
 		</button>
 	</div>
 
+	<button
+		onclick={() => onToggleSplitView()}
+		class="cursor-pointer rounded p-1 hover:bg-gray-200"
+		title={isSplitView ? 'Hide Preview' : 'Show Preview'}
+	>
+		<SplitSquareVertical size={20} />
+	</button>
+
 	<div class="mx-1 h-6 border-l"></div>
 
 	<button onclick={onUndo} class="cursor-pointer rounded p-1 hover:bg-gray-200" title="Undo">
@@ -339,6 +347,8 @@
 		<Image size={20} />
 	</button>
 
+	<div class="mx-1 h-6 border-l md:hidden"></div>
+
 	<div class="ml-auto flex items-center">
 		<button
 			onclick={handlePrint}
@@ -366,14 +376,6 @@
 			title="Save to Disk"
 		>
 			<Save size={20} />
-		</button>
-
-		<button
-			onclick={() => onToggleSplitView()}
-			class="cursor-pointer rounded p-1 hover:bg-gray-200"
-			title={isSplitView ? 'Hide Preview' : 'Show Preview'}
-		>
-			<SplitSquareVertical size={20} />
 		</button>
 	</div>
 </div>
