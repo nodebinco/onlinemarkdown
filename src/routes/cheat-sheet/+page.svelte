@@ -1,14 +1,24 @@
 <script lang="ts">
-  import MarkdownPreview from '$lib/components/MarkdownPreview.svelte';
 </script>
 
-<div class="container mx-auto px-4 py-8">
-  <h1 class="mb-8 text-4xl font-bold">Markdown Cheat Sheet</h1>
+<svelte:head>
+  <title>Markdown Cheat Sheet | OnlineMarkdown.com</title>
+  <meta name="description" content="A comprehensive Markdown cheat sheet with basic and advanced syntax, examples, tips, and best practices for efficient Markdown writing." />
+  <meta name="keywords" content="markdown, cheat sheet, quick reference, syntax, formatting, documentation, markdown editor, code blocks, tables, lists" />
+</svelte:head>
 
+<div class="max-w-6xl mx-auto mt-4 p-5 font-sans leading-relaxed text-gray-800">
+  <h1 class="text-4xl font-bold mb-4">Markdown Cheat Sheet</h1>
+  <p class="text-xl text-gray-600 mb-8">
+    This cheat sheet provides a quick reference for the most commonly used Markdown syntax elements.
+    Use it as a handy guide while writing your Markdown documents.
+  </p>
   <div class="prose prose-lg max-w-none">
+
+
     <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
-      <div class="rounded-lg border border-zinc-200 p-6">
-        <h2 class="mb-4 text-2xl font-bold">Basic Syntax</h2>
+      <div class="rounded-lg border border-zinc-200 px-6 shadow-sm">
+        <h2 class="text-2xl font-bold">Basic Syntax</h2>
         <table class="w-full">
           <thead>
             <tr>
@@ -19,58 +29,70 @@
           <tbody>
             <tr>
               <td class="border-b p-2">Heading 1</td>
-              <td class="border-b p-2"><code># Heading 1</code></td>
+              <td class="border-b p-2 font-mono text-sm"><code># Heading 1</code></td>
             </tr>
             <tr>
               <td class="border-b p-2">Heading 2</td>
-              <td class="border-b p-2"><code>## Heading 2</code></td>
+              <td class="border-b p-2 font-mono text-sm"><code>## Heading 2</code></td>
+            </tr>
+            <tr>
+              <td class="border-b p-2">Heading 3</td>
+              <td class="border-b p-2 font-mono text-sm"><code>### Heading 3</code></td>
             </tr>
             <tr>
               <td class="border-b p-2">Bold</td>
-              <td class="border-b p-2"><code>**bold text**</code></td>
+              <td class="border-b p-2 font-mono text-sm"><code>**bold text**</code></td>
             </tr>
             <tr>
               <td class="border-b p-2">Italic</td>
-              <td class="border-b p-2"><code>*italic text*</code></td>
+              <td class="border-b p-2 font-mono text-sm"><code>*italic text*</code></td>
+            </tr>
+            <tr>
+              <td class="border-b p-2">Bold & Italic</td>
+              <td class="border-b p-2 font-mono text-sm"><code>***bold & italic***</code></td>
             </tr>
             <tr>
               <td class="border-b p-2">Strikethrough</td>
-              <td class="border-b p-2"><code>~~strikethrough~~</code></td>
+              <td class="border-b p-2 font-mono text-sm"><code>~~strikethrough~~</code></td>
             </tr>
             <tr>
               <td class="border-b p-2">Unordered List</td>
-              <td class="border-b p-2"><code>- List item</code></td>
+              <td class="border-b p-2 font-mono text-sm"><code>- List item<br>- Another item</code></td>
             </tr>
             <tr>
               <td class="border-b p-2">Ordered List</td>
-              <td class="border-b p-2"><code>1. List item</code></td>
+              <td class="border-b p-2 font-mono text-sm"><code>1. First item<br>2. Second item</code></td>
             </tr>
             <tr>
               <td class="border-b p-2">Link</td>
-              <td class="border-b p-2"><code>[Link text](URL)</code></td>
+              <td class="border-b p-2 font-mono text-sm"><code>[Link text](URL)</code></td>
             </tr>
             <tr>
               <td class="border-b p-2">Image</td>
-              <td class="border-b p-2"><code>![Alt text](image.jpg)</code></td>
+              <td class="border-b p-2 font-mono text-sm"><code>![Alt text](image.jpg)</code></td>
             </tr>
             <tr>
-              <td class="border-b p-2">Code</td>
-              <td class="border-b p-2"><code>`code`</code></td>
+              <td class="border-b p-2">Inline Code</td>
+              <td class="border-b p-2 font-mono text-sm"><code>`code`</code></td>
             </tr>
             <tr>
               <td class="border-b p-2">Blockquote</td>
-              <td class="border-b p-2"><code>> Blockquote text</code></td>
+              <td class="border-b p-2 font-mono text-sm"><code>> Blockquote text</code></td>
             </tr>
             <tr>
               <td class="border-b p-2">Horizontal Rule</td>
-              <td class="border-b p-2"><code>---</code></td>
+              <td class="border-b p-2 font-mono text-sm"><code>---</code> or <code>***</code> or <code>___</code></td>
+            </tr>
+            <tr>
+              <td class="border-b p-2">Line Break</td>
+              <td class="border-b p-2 font-mono text-sm">End a line with two spaces</td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <div class="rounded-lg border border-zinc-200 p-6">
-        <h2 class="mb-4 text-2xl font-bold">Extended Syntax</h2>
+      <div class="rounded-lg border border-zinc-200 px-6 shadow-sm">
+        <h2 class="text-2xl font-bold">Extended Syntax</h2>
         <table class="w-full">
           <thead>
             <tr>
@@ -81,35 +103,57 @@
           <tbody>
             <tr>
               <td class="border-b p-2">Table</td>
-              <td class="border-b p-2"
+              <td class="border-b p-2 font-mono text-sm"
                 ><code>| Header | Header |<br />|--------|--------|<br />| Cell | Cell |</code></td
               >
             </tr>
             <tr>
+              <td class="border-b p-2">Aligned Table</td>
+              <td class="border-b p-2 font-mono text-sm"
+                ><code>| Left | Center | Right |<br />|:-----|:------:|------:|<br />| Cell | Cell | Cell |</code></td
+              >
+            </tr>
+            <tr>
               <td class="border-b p-2">Task List</td>
-              <td class="border-b p-2"><code>- [ ] Task<br />- [x] Done</code></td>
+              <td class="border-b p-2 font-mono text-sm"><code>- [ ] Task<br />- [x] Done</code></td>
+            </tr>
+            <tr>
+              <td class="border-b p-2">Fenced Code Block</td>
+              <td class="border-b p-2 font-mono text-sm"><code>```language<br>code block<br>```</code></td>
             </tr>
             <tr>
               <td class="border-b p-2">Footnote</td>
-              <td class="border-b p-2"><code>Text[^1]<br />[^1]: Footnote</code></td>
+              <td class="border-b p-2 font-mono text-sm"><code>Text[^1]<br />[^1]: Footnote</code></td>
             </tr>
             <tr>
               <td class="border-b p-2">Definition List</td>
-              <td class="border-b p-2"><code>Term<br />: Definition</code></td>
+              <td class="border-b p-2 font-mono text-sm"><code>Term<br />: Definition</code></td>
             </tr>
             <tr>
               <td class="border-b p-2">Mermaid Diagram</td>
-              <td class="border-b p-2"
+              <td class="border-b p-2 font-mono text-sm"
                 ><code>```mermaid<br />graph TD<br />A --> B<br />```</code></td
               >
             </tr>
             <tr>
               <td class="border-b p-2">Math Equation</td>
-              <td class="border-b p-2"><code>$E = mc^2$</code></td>
+              <td class="border-b p-2 font-mono text-sm"><code>$E = mc^2$</code></td>
             </tr>
             <tr>
               <td class="border-b p-2">Emoji</td>
-              <td class="border-b p-2"><code>:smile: :heart:</code></td>
+              <td class="border-b p-2 font-mono text-sm"><code>:smile: :heart:</code></td>
+            </tr>
+            <tr>
+              <td class="border-b p-2">Highlight</td>
+              <td class="border-b p-2 font-mono text-sm"><code>==highlighted text==</code></td>
+            </tr>
+            <tr>
+              <td class="border-b p-2">Subscript</td>
+              <td class="border-b p-2 font-mono text-sm"><code>H~2~O</code></td>
+            </tr>
+            <tr>
+              <td class="border-b p-2">Superscript</td>
+              <td class="border-b p-2 font-mono text-sm"><code>X^2^</code></td>
             </tr>
           </tbody>
         </table>
@@ -119,9 +163,9 @@
     <div class="mt-8">
       <h2 class="mb-4 text-2xl font-bold">Quick Reference Examples</h2>
       <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <div class="rounded-lg border border-zinc-200 p-4">
+        <div class="rounded-lg border border-zinc-200 px-6">
           <h3 class="mb-2 font-semibold">Basic Document Structure</h3>
-          <pre class="rounded bg-zinc-100 p-4 whitespace-pre-wrap"># Main Title
+          <pre class="rounded bg-zinc-100 p-4 whitespace-pre-wrap text-gray-800"># Main Title
 ## Section 1
 Content goes here...
 
@@ -131,9 +175,9 @@ Content goes here...
 
 > Important note here</pre>
         </div>
-        <div class="rounded-lg border border-zinc-200 p-4">
+        <div class="rounded-lg border border-zinc-200 px-6">
           <h3 class="mb-2 font-semibold">Advanced Formatting</h3>
-          <pre class="rounded bg-zinc-100 p-4 whitespace-pre-wrap">| Feature | Support |
+          <pre class="rounded bg-zinc-100 p-4 whitespace-pre-wrap text-gray-800">| Feature | Support |
 |---------|---------|
 | Tables  | ✅      |
 | Lists   | ✅      |

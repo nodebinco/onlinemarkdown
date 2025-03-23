@@ -110,42 +110,6 @@ print(f"The sum is: {result}")
 ### 📢 Try It Now!
 
 Start writing Markdown at [Online Markdown Editor](https://onlinemarkdown.com) and boost your productivity today! 🚀
-
-### 🎨 Mermaid Diagrams
-
-#### Flowchart
-\`\`\`mermaid
-graph TD
-    A[Start] --> B{Is it working?}
-    B -->|Yes| C[Great!]
-    B -->|No| D[Debug]
-    D --> B
-\`\`\`
-
-#### Sequence Diagram
-\`\`\`mermaid
-sequenceDiagram
-    participant User
-    participant Editor
-    participant Preview
-    
-    User->>Editor: Type markdown
-    Editor->>Preview: Update preview
-    Preview-->>User: Show rendered content
-\`\`\`
-
-#### Gantt Chart
-\`\`\`mermaid
-gantt
-    title Project Timeline
-    dateFormat  YYYY-MM-DD
-    section Planning
-    Requirements    :a1, 2024-01-01, 7d
-    Design         :a2, after a1, 5d
-    section Development
-    Coding         :a3, after a2, 14d
-    Testing        :a4, after a3, 7d
-\`\`\`
 `;
 
   let isSplitView = true;

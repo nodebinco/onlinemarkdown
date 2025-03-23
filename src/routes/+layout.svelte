@@ -1,12 +1,12 @@
 <script>
   import '../app.css';
-  
+
   let mobileMenuOpen = false;
-  
+
   const toggleMobileMenu = () => {
     mobileMenuOpen = !mobileMenuOpen;
     console.log('Mobile menu toggled:', mobileMenuOpen); // Debug log
-  }
+  };
 </script>
 
 <div class="flex h-screen flex-col">
@@ -26,41 +26,41 @@
       </div>
       <span class="font-semibold"><a href="/">Online Markdown Editor</a></span>
     </div>
-    
+
     <!-- Desktop Navigation -->
     <div class="flex items-center">
-      <nav class="hidden md:flex items-center space-x-4">
+      <nav class="hidden items-center space-x-4 md:flex">
         <a href="/syntax" class="hover:text-zinc-300">Syntax</a>
         <a href="/cheat-sheet" class="hover:text-zinc-300">Cheat Sheet</a>
       </nav>
-      
+
       <!-- Hamburger Menu Button - Visible only on mobile -->
-      <button 
-        class="block md:hidden p-2 text-white focus:outline-none"
+      <button
+        class="block p-2 text-white focus:outline-none md:hidden"
         on:click={toggleMobileMenu}
         aria-label="Toggle menu"
       >
-        <svg 
-          class="w-6 h-6" 
-          fill="none" 
-          stroke="currentColor" 
-          viewBox="0 0 24 24" 
+        <svg
+          class="h-6 w-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
         >
           {#if mobileMenuOpen}
             <!-- X icon when menu is open -->
-            <path 
-              stroke-linecap="round" 
-              stroke-linejoin="round" 
-              stroke-width="2" 
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
               d="M6 18L18 6M6 6l12 12"
             ></path>
           {:else}
             <!-- Hamburger icon when menu is closed -->
-            <path 
-              stroke-linecap="round" 
-              stroke-linejoin="round" 
-              stroke-width="2" 
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
               d="M4 6h16M4 12h16M4 18h16"
             ></path>
           {/if}
@@ -68,16 +68,16 @@
       </button>
     </div>
   </header>
-  
+
   <!-- Mobile Menu -->
   {#if mobileMenuOpen}
-    <div class="block md:hidden bg-zinc-800 text-white">
-      <nav class="flex flex-col p-4 space-y-2">
-        <a href="/syntax" class="py-2 px-4 hover:bg-zinc-700 rounded">Syntax</a>
-        <a href="/cheat-sheet" class="py-2 px-4 hover:bg-zinc-700 rounded">Cheat Sheet</a>
+    <div class="block bg-zinc-800 text-white md:hidden">
+      <nav class="flex flex-col space-y-2 p-4">
+        <a href="/syntax" class="rounded px-4 py-2 hover:bg-zinc-700">Syntax</a>
+        <a href="/cheat-sheet" class="rounded px-4 py-2 hover:bg-zinc-700">Cheat Sheet</a>
       </nav>
     </div>
   {/if}
-  
+
   <slot></slot>
 </div>

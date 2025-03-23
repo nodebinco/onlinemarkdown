@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-  <title>Online Markdown Editor - Simple, Fast & Live Preview</title>
+  <title>Online Markdown Editor - Simple, Fast & Live Preview | OnlineMarkdown.com</title>
   <meta
     name="description"
     content="Write and preview Markdown instantly with our Online Markdown Editor. Supports GitHub Flavored Markdown (GFM), tables, code blocks, and Mermaid diagrams. No installation required—just start typing!"

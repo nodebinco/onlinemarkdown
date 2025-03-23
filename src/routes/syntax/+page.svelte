@@ -1,11 +1,11 @@
 <svelte:head>
-  <title>Markdown Syntax Guide | Online Markdown Editor</title>
+  <title>Markdown Syntax Guide | OnlineMarkdown.com</title>
   <meta name="description" content="A comprehensive guide to Markdown syntax, including headings, paragraphs, formatting, lists, code blocks, and more. Learn how to format your documents with Markdown." />
   <meta name="keywords" content="markdown, syntax, guide, formatting, documentation, text editor, markdown editor, headings, lists, code blocks, links, images, tables" />
 </svelte:head>
 
 <div class="max-w-6xl mx-auto mt-4 p-5 font-sans leading-relaxed text-gray-800">
-  <h1 class="text-4xl font-bold mb-2">Markdown Syntax Guide</h1>
+  <h1 class="text-4xl font-bold mb-4">Markdown Syntax Guide</h1>
   <p class="text-xl text-gray-600 mb-8">Essential syntax for formatting your documents</p>
 
   <section id="overview" class="mb-8">
