@@ -4,58 +4,58 @@
 
 /* Tailwind-like utility classes */
 .flex {
-	display: flex;
+  display: flex;
 }
 .flex-1 {
-	flex: 1 1 0%;
+  flex: 1 1 0%;
 }
 .flex-col {
-	flex-direction: column;
+  flex-direction: column;
 }
 .items-center {
-	align-items: center;
+  align-items: center;
 }
 .justify-between {
-	justify-content: space-between;
+  justify-content: space-between;
 }
 .space-x-2 > * + * {
-	margin-left: 0.5rem;
+  margin-left: 0.5rem;
 }
 .h-screen {
-	height: 100vh;
+  height: 100vh;
 }
 .w-full {
-	width: 100%;
+  width: 100%;
 }
 .p-2 {
-	padding: 0.5rem;
+  padding: 0.5rem;
 }
 .bg-zinc-800 {
-	background-color: #27272a;
+  background-color: #27272a;
 }
 .text-white {
-	color: white;
+  color: white;
 }
 .rounded {
-	border-radius: 0.25rem;
+  border-radius: 0.25rem;
 }
 .hover\:bg-zinc-700:hover {
-	background-color: #3f3f46;
+  background-color: #3f3f46;
 }
 
 /* Full Screen Mode */
 body.overflow-hidden {
-	overflow: hidden;
+  overflow: hidden;
 }
 
 /* Print Styles */
 @media print {
-	.markdown-preview {
-		padding: 2cm;
-	}
+  .markdown-preview {
+    padding: 2cm;
+  }
 
-	.markdown-preview pre,
-	.markdown-preview code {
-		white-space: pre-wrap;
-	}
+  .markdown-preview pre,
+  .markdown-preview code {
+    white-space: pre-wrap;
+  }
 }
