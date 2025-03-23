@@ -69,14 +69,12 @@
 
 	:global(.markdown-preview code) {
 		background-color: rgba(27, 31, 35, 0.05);
+		color: #333000;
+		font-size: 0.875rem;
 		border-radius: 3px;
 		padding: 0.2em 0.4em;
 		font-family:
-			SFMono-Regular,
-			Consolas,
-			Liberation Mono,
-			Menlo,
-			monospace;
+			'Courier New', monospace;
 	}
 
 	:global(.markdown-preview pre code) {

@@ -248,6 +248,6 @@
 
 <style>
 	textarea {
-		font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+		font-family: 'Courier New', monospace;
 	}
 </style>

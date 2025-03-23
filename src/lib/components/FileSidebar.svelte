@@ -58,7 +58,7 @@
 			<ul class="divide-y">
 				{#each sortedFiles as file (file.id)}
 					<li
-						class={`border-b border-gray-300 p-2 hover:bg-gray-200 ${currentFile.id === file.id ? 'bg-gray-300' : ''}`}
+						class={`text-sm border-b border-gray-300 p-2 hover:bg-gray-200 ${currentFile.id === file.id ? 'bg-gray-300' : ''}`}
 					>
 						{#if editingFileId === file.id}
 							<div class="flex items-center gap-2">

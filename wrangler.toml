@@ -1,0 +1,8 @@
+name = "onlinemarkdown"
+main = "./.cloudflare/worker.js"
+site.bucket = "./.cloudflare/public"
+
+build.command = "bun run build"
+
+compatibility_date = "2025-03-22"
+workers_dev = true
