@@ -58,7 +58,6 @@ Start the development server:
 ```shellscript
 # Start the development server
 bun dev
-
 ```
 
 ### Building for Production
