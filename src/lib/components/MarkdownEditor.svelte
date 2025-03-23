@@ -47,7 +47,7 @@
 		}
 	};
 
-	function saveFiles() {
+	const saveFiles = () => {
 		try {
 			const fileIndex = files.findIndex((f) => f.id === currentFile.id);
 			const updatedFile = { ...currentFile, lastModified: Date.now() };
@@ -65,7 +65,11 @@
 		} catch (error) {
 			console.error('Error saving:', error);
 		}
-	}
+	};
+
+	const handleSaveToDisk = () => {
+		console.log('Saving to disk');
+	};
 </script>
 
 <div class="flex h-[calc(100vh-50px)] flex-1 flex-col overflow-hidden">
@@ -76,10 +80,14 @@
 		{isFullScreen}
 		{isSidebarOpen}
 		currentFileName={currentFile.name}
-		on:toggleSplitView={() => (isSplitView = !isSplitView)}
-		on:toggleFullScreen={() => (isFullScreen = !isFullScreen)}
-		on:toggleSidebar={() => (isSidebarOpen = !isSidebarOpen)}
-		on:saveToDisk={handleSaveToDisk}
+		onContentChange={(newContent) => {
+			currentFile.content = newContent;
+			markdown = newContent;
+		}}
+		onToggleSplitView={() => (isSplitView = !isSplitView)}
+		onToggleFullScreen={() => (isFullScreen = !isFullScreen)}
+		onToggleSidebar={() => (isSidebarOpen = !isSidebarOpen)}
+		onSaveToDisk={handleSaveToDisk}
 	/>
 
 	<div class="flex flex-1 overflow-hidden">
