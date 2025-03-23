@@ -242,7 +242,7 @@ graph TD;
   };
 </script>
 
-<div class="flex h-[calc(100vh-50px)] flex-1 flex-col overflow-hidden">
+<div class="flex h-[calc(100vh-200px)] flex-1 flex-col overflow-hidden">
   <MarkdownToolbar
     bind:editorElement
     markdown={currentFile.content}
@@ -303,9 +303,11 @@ graph TD;
       <span class="mr-4 text-gray-700">{currentFile.name}</span>
     </div>
     <div class="flex space-x-4">
-      <span>{currentFile.content.length} characters</span>
-      <span>{currentFile.content.split(/\s+/).filter(Boolean).length} words</span>
-      <span>{currentFile.content.split(/\n\n+/).filter(Boolean).length} paragraphs</span>
+      <span>{currentFile.content.length.toLocaleString()} characters</span>
+      <span>{currentFile.content.split(/\s+/).filter(Boolean).length.toLocaleString()} words</span>
+      <span
+        >{currentFile.content.split(/\n\n+/).filter(Boolean).length.toLocaleString()} paragraphs</span
+      >
     </div>
   </div>
 </div>
