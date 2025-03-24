@@ -13,7 +13,7 @@
     updatedAt: number;
   }
 
-  let markdown = `# Online Markdown Editor - The Best Free Markdown Tool 🚀
+  let markdownExample = `# Online Markdown Editor - The Best Free Markdown Tool 🚀
 
 Experience the **fastest**, *most intuitive*, and ~~hassle-free~~ Markdown editor online!  
 Create and preview Markdown instantly with **GitHub Flavored Markdown (GFM)** support.  
@@ -112,18 +112,18 @@ print(f"The sum is: {result}")
 Start writing Markdown at [Online Markdown Editor](https://onlinemarkdown.com) and boost your productivity today! 🚀
 `;
 
-  let isSplitView = true;
-  let isSidebarOpen = false;
-  let isFullScreen = false;
-  let editorElement: HTMLTextAreaElement;
-  let files: File[] = [];
-  let currentFile: File = {
+  let isSplitView = $state(true);
+  let isSidebarOpen = $state(false);
+  let isFullScreen = $state(false);
+  let editorElement: HTMLTextAreaElement = $state(null);
+  let files: File[] = $state([]);
+  let currentFile: File = $state({
     id: genFileId(),
     name: 'Untitled',
-    content: markdown,
+    content: '',
     createdAt: Date.now(),
     updatedAt: Date.now()
-  };
+  });
 
   let history: string[] = [];
   let historyIndex = -1;
@@ -145,7 +145,6 @@ Start writing Markdown at [Online Markdown Editor](https://onlinemarkdown.com) a
     if (historyIndex > 0) {
       historyIndex--;
       currentFile.content = history[historyIndex];
-      markdown = currentFile.content;
     }
   };
 
@@ -153,7 +152,6 @@ Start writing Markdown at [Online Markdown Editor](https://onlinemarkdown.com) a
     if (historyIndex < history.length - 1) {
       historyIndex++;
       currentFile.content = history[historyIndex];
-      markdown = currentFile.content;
     }
   };
 
@@ -168,7 +166,7 @@ Start writing Markdown at [Online Markdown Editor](https://onlinemarkdown.com) a
 
   onMount(() => {
     loadFiles();
-    const interval = setInterval(saveFiles, 5000);
+    const interval = setInterval(saveFiles, 2000);
 
     history = [currentFile.content];
     historyIndex = 0;
@@ -196,10 +194,15 @@ Start writing Markdown at [Online Markdown Editor](https://onlinemarkdown.com) a
         const parsedFiles = JSON.parse(storedFiles) as File[];
         if (Array.isArray(parsedFiles) && parsedFiles.length > 0) {
           files = parsedFiles;
-          currentFile = [...parsedFiles].sort((a, b) => b.updatedAt - a.updatedAt)[0];
+          currentFile = [...parsedFiles].sort((a, b) => b.createdAt - a.createdAt)[0];
+          currentFile.content = currentFile.content;
         } else {
+          currentFile.content = markdownExample;
           files = [currentFile];
         }
+      } else {
+        currentFile.content = markdownExample;
+        files = [currentFile];
       }
     } catch (error) {
       console.error('Error loading files:', error);
@@ -250,7 +253,6 @@ Start writing Markdown at [Online Markdown Editor](https://onlinemarkdown.com) a
     };
     files = [...files, newFile];
     currentFile = newFile;
-    markdown = '';
     history = [''];
     historyIndex = 0;
   };
@@ -258,8 +260,7 @@ Start writing Markdown at [Online Markdown Editor](https://onlinemarkdown.com) a
   const handleDeleteFile = (fileId: string) => {
     files = files.filter((f) => f.id !== fileId);
     if (currentFile.id === fileId && files.length > 0) {
-      currentFile = files[0];
-      markdown = currentFile.content;
+      currentFile = files[files.length - 1];
     } else if (files.length === 0) {
       handleNewFile();
     }
@@ -267,7 +268,6 @@ Start writing Markdown at [Online Markdown Editor](https://onlinemarkdown.com) a
 
   const handleFileSelect = (file: File) => {
     currentFile = file;
-    markdown = file.content;
     history = [file.content];
     historyIndex = 0;
   };
@@ -295,7 +295,6 @@ Start writing Markdown at [Online Markdown Editor](https://onlinemarkdown.com) a
     currentFileName={currentFile.name}
     on:contentChange={(event) => {
       currentFile.content = event.detail;
-      markdown = event.detail;
     }}
     on:toggleSplitView={() => (isSplitView = !isSplitView)}
     on:toggleFullScreen={handleFullScreen}
@@ -357,6 +356,6 @@ Start writing Markdown at [Online Markdown Editor](https://onlinemarkdown.com) a
 
 <style>
   textarea {
-    font-family: 'Courier New', monospace;
+    font-family: monospace;
   }
 </style>
