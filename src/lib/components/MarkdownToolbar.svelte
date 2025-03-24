@@ -148,7 +148,7 @@
       class="cursor-pointer rounded p-1 hover:bg-gray-200"
       title="New File"
     >
-      <File size={20} />
+      <File size={24} />
     </button>
 
     <button
@@ -156,7 +156,7 @@
       class="ml-1 cursor-pointer rounded p-1 hover:bg-gray-200"
       title={isSidebarOpen ? 'Hide Sidebar' : 'Show Sidebar'}
     >
-      <LayoutGrid size={20} />
+      <LayoutGrid size={24} />
     </button>
   </div>
 
@@ -165,17 +165,17 @@
     class="cursor-pointer rounded p-1 hover:bg-gray-200"
     title={isSplitView ? 'Hide Preview' : 'Show Preview'}
   >
-    <SplitSquareVertical size={20} />
+    <SplitSquareVertical size={24} />
   </button>
 
   <div class="mx-1 h-6 border-l"></div>
 
   <button onclick={onUndo} class="cursor-pointer rounded p-1 hover:bg-gray-200" title="Undo">
-    <Undo size={20} />
+    <Undo size={24} />
   </button>
 
   <button onclick={onRedo} class="cursor-pointer rounded p-1 hover:bg-gray-200" title="Redo">
-    <Redo size={20} />
+    <Redo size={24} />
   </button>
 
   <div class="mx-1 h-6 border-l"></div>
@@ -186,7 +186,7 @@
       class="flex cursor-pointer items-center rounded p-1 hover:bg-gray-200"
       title="Headings"
     >
-      <Heading size={20} />
+      <Heading size={24} />
       <ChevronDown size={16} class="ml-1" />
     </button>
 
@@ -297,7 +297,7 @@
     class="cursor-pointer rounded p-1 hover:bg-gray-200"
     title="Bullet List"
   >
-    <List size={20} />
+    <List size={24} />
   </button>
 
   <button
@@ -305,7 +305,7 @@
     class="cursor-pointer rounded p-1 hover:bg-gray-200"
     title="Numbered List"
   >
-    <ListOrdered size={20} />
+    <ListOrdered size={24} />
   </button>
 
   <button
@@ -313,7 +313,7 @@
     class="cursor-pointer rounded p-1 hover:bg-gray-200"
     title="Quote"
   >
-    <Quote size={20} />
+    <Quote size={24} />
   </button>
 
   <button
@@ -321,11 +321,11 @@
     class="cursor-pointer rounded p-1 hover:bg-gray-200"
     title="Code"
   >
-    <Code size={20} />
+    <Code size={24} />
   </button>
 
   <button onclick={formatTable} class="cursor-pointer rounded p-1 hover:bg-gray-200" title="Table">
-    <Table size={20} />
+    <Table size={24} />
   </button>
 
   <button
@@ -336,7 +336,7 @@
     class="cursor-pointer rounded p-1 hover:bg-gray-200"
     title="Link"
   >
-    <Link size={20} />
+    <Link size={24} />
   </button>
 
   <button
@@ -346,7 +346,7 @@
     class="cursor-pointer rounded p-1 hover:bg-gray-200"
     title="Image"
   >
-    <Image size={20} />
+    <Image size={24} />
   </button>
 
   <div class="mx-1 h-6 border-l md:hidden"></div>
@@ -357,7 +357,7 @@
       class="mr-2 cursor-pointer rounded p-1 hover:bg-gray-200"
       title="Print"
     >
-      <Printer size={20} />
+      <Printer size={24} />
     </button>
 
     <button
@@ -366,9 +366,9 @@
       title={isFullScreen ? 'Exit Full Screen' : 'Full Screen'}
     >
       {#if isFullScreen}
-        <Minimize size={20} />
+        <Minimize size={24} />
       {:else}
-        <Maximize size={20} />
+        <Maximize size={24} />
       {/if}
     </button>
 
@@ -377,7 +377,7 @@
       class="mr-2 cursor-pointer rounded p-1 hover:bg-gray-200"
       title="Save to Disk"
     >
-      <Save size={20} />
+      <Save size={24} />
     </button>
   </div>
 </div>
