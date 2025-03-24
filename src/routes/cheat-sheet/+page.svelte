@@ -19,7 +19,7 @@
     <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
       <div class="rounded-lg border border-zinc-200 px-6 shadow-sm">
         <h2 class="text-2xl font-bold">Basic Syntax</h2>
-        <table class="w-full">
+        <table class="w-full text-base text-gray-800">
           <thead>
             <tr>
               <th class="border-b p-2 text-left">Element</th>
@@ -93,7 +93,7 @@
 
       <div class="rounded-lg border border-zinc-200 px-6 shadow-sm">
         <h2 class="text-2xl font-bold">Extended Syntax</h2>
-        <table class="w-full">
+        <table class="w-full text-base text-gray-800">
           <thead>
             <tr>
               <th class="border-b p-2 text-left">Element</th>
@@ -165,7 +165,7 @@
       <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div class="rounded-lg border border-zinc-200 px-6">
           <h3 class="mb-2 font-semibold">Basic Document Structure</h3>
-          <pre class="rounded bg-zinc-100 p-4 whitespace-pre-wrap text-gray-800"># Main Title
+          <pre class="rounded bg-zinc-100 p-4 whitespace-pre-wrap text-gray-800 text-base"># Main Title
 ## Section 1
 Content goes here...
 
@@ -177,7 +177,7 @@ Content goes here...
         </div>
         <div class="rounded-lg border border-zinc-200 px-6">
           <h3 class="mb-2 font-semibold">Advanced Formatting</h3>
-          <pre class="rounded bg-zinc-100 p-4 whitespace-pre-wrap text-gray-800">| Feature | Support |
+          <pre class="rounded bg-zinc-100 p-4 whitespace-pre-wrap text-gray-800 text-base">| Feature | Support |
 |---------|---------|
 | Tables  | ✅      |
 | Lists   | ✅      |
@@ -193,7 +193,7 @@ Content goes here...
 
     <div class="mt-8">
       <h2 class="mb-4 text-2xl font-bold">Tips & Tricks</h2>
-      <ul class="list-inside list-disc space-y-2">
+      <ul class="list-inside list-disc space-y-2 text-base text-gray-800">
         <li>Use <strong>#</strong> for headings (1-6 levels)</li>
         <li>Use <strong>**</strong> or <strong>__</strong> for bold text</li>
         <li>Use <strong>*</strong> or <strong>_</strong> for italic text</li>

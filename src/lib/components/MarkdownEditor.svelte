@@ -129,41 +129,6 @@ Start writing Markdown at [Online Markdown Editor](https://onlinemarkdown.com) a
   let historyIndex = -1;
   let debounceTimer: ReturnType<typeof setTimeout>;
 
-  const handleContentChange = () => {
-    if (debounceTimer) {
-      clearTimeout(debounceTimer);
-    }
-
-    debounceTimer = setTimeout(() => {
-      history = history.slice(0, historyIndex + 1);
-      history.push(currentFile.content);
-      historyIndex++;
-    }, 500);
-  };
-
-  const handleUndo = () => {
-    if (historyIndex > 0) {
-      historyIndex--;
-      currentFile.content = history[historyIndex];
-    }
-  };
-
-  const handleRedo = () => {
-    if (historyIndex < history.length - 1) {
-      historyIndex++;
-      currentFile.content = history[historyIndex];
-    }
-  };
-
-  const handleFullScreen = () => {
-    isFullScreen = !isFullScreen;
-    if (isFullScreen) {
-      document.documentElement.requestFullscreen();
-    } else {
-      document.exitFullscreen();
-    }
-  };
-
   onMount(() => {
     loadFiles();
     const interval = setInterval(saveFiles, 2000);
@@ -226,6 +191,41 @@ Start writing Markdown at [Online Markdown Editor](https://onlinemarkdown.com) a
       files = updatedFiles;
     } catch (error) {
       console.error('Error saving:', error);
+    }
+  };
+
+  const handleContentChange = () => {
+    if (debounceTimer) {
+      clearTimeout(debounceTimer);
+    }
+
+    debounceTimer = setTimeout(() => {
+      history = history.slice(0, historyIndex + 1);
+      history.push(currentFile.content);
+      historyIndex++;
+    }, 500);
+  };
+
+  const handleUndo = () => {
+    if (historyIndex > 0) {
+      historyIndex--;
+      currentFile.content = history[historyIndex];
+    }
+  };
+
+  const handleRedo = () => {
+    if (historyIndex < history.length - 1) {
+      historyIndex++;
+      currentFile.content = history[historyIndex];
+    }
+  };
+
+  const handleFullScreen = () => {
+    isFullScreen = !isFullScreen;
+    if (isFullScreen) {
+      document.documentElement.requestFullscreen();
+    } else {
+      document.exitFullscreen();
     }
   };
 
@@ -292,22 +292,22 @@ Start writing Markdown at [Online Markdown Editor](https://onlinemarkdown.com) a
     {isSplitView}
     {isFullScreen}
     {isSidebarOpen}
+    onNewFile={handleNewFile}
     currentFileName={currentFile.name}
-    on:contentChange={(event) => {
-      currentFile.content = event.detail;
+    onContentChange={(newContent: string) => {
+      currentFile.content = newContent;
     }}
-    on:toggleSplitView={() => (isSplitView = !isSplitView)}
-    on:toggleFullScreen={handleFullScreen}
-    on:toggleSidebar={() => {
+    onToggleSplitView={() => (isSplitView = !isSplitView)}
+    onToggleFullScreen={handleFullScreen}
+    onToggleSidebar={() => {
       isSidebarOpen = !isSidebarOpen;
       if (window.innerWidth < 768) {
         isSplitView = !isSidebarOpen;
       }
     }}
-    on:saveToDisk={handleSaveToDisk}
-    on:undo={handleUndo}
-    on:redo={handleRedo}
-    on:newFile={handleNewFile}
+    onSaveToDisk={handleSaveToDisk}
+    onUndo={handleUndo}
+    onRedo={handleRedo}
   />
 
   <div class="flex flex-1 overflow-hidden">
@@ -326,7 +326,7 @@ Start writing Markdown at [Online Markdown Editor](https://onlinemarkdown.com) a
       <textarea
         bind:this={editorElement}
         bind:value={currentFile.content}
-        on:input={handleContentChange}
+        oninput={handleContentChange}
         class="h-full w-full resize-none overflow-auto border-none p-4 font-mono text-sm"
         spellcheck="false"
       ></textarea>

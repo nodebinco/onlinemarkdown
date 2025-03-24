@@ -22,6 +22,7 @@
   import ImageDialog from './ImageDialog.svelte';
   import LinkDialog from './LinkDialog.svelte';
   import { createEventDispatcher } from 'svelte';
+  import { on } from 'svelte/events';
 
   let {
     editorElement = $bindable(),
@@ -29,52 +30,16 @@
     isSplitView = true,
     isFullScreen = false,
     isSidebarOpen = false,
-    currentFileName = 'Untitled'
+    currentFileName = 'Untitled',
+    onToggleSidebar,
+    onToggleFullScreen,
+    onToggleSplitView,
+    onSaveToDisk,
+    onContentChange,
+    onUndo,
+    onRedo,
+    onNewFile
   } = $props();
-
-  const dispatch = createEventDispatcher<{
-    contentChange: string;
-    toggleSplitView: void;
-    toggleFullScreen: void;
-    toggleSidebar: void;
-    saveToDisk: void;
-    undo: void;
-    redo: void;
-    newFile: void;
-  }>();
-
-  const handleContentChange = (event: Event) => {
-    const target = event.target as HTMLTextAreaElement;
-    dispatch('contentChange', target.value);
-  };
-
-  const handleToggleSplitView = () => {
-    dispatch('toggleSplitView');
-  };
-
-  const handleToggleFullScreen = () => {
-    dispatch('toggleFullScreen');
-  };
-
-  const handleToggleSidebar = () => {
-    dispatch('toggleSidebar');
-  };
-
-  const handleSaveToDisk = () => {
-    dispatch('saveToDisk');
-  };
-
-  const handleUndo = () => {
-    dispatch('undo');
-  };
-
-  const handleRedo = () => {
-    dispatch('redo');
-  };
-
-  const handleNewFile = () => {
-    dispatch('newFile');
-  };
 
   let imageDialogOpen = $state(false);
   let linkDialogOpen = $state(false);
@@ -179,7 +144,7 @@
 >
   <div class="flex items-center">
     <button
-      onclick={() => handleNewFile()}
+      onclick={onNewFile}
       class="cursor-pointer rounded p-1 hover:bg-gray-200"
       title="New File"
     >
@@ -187,7 +152,7 @@
     </button>
 
     <button
-      onclick={() => handleToggleSidebar()}
+      onclick={onToggleSidebar}
       class="ml-1 cursor-pointer rounded p-1 hover:bg-gray-200"
       title={isSidebarOpen ? 'Hide Sidebar' : 'Show Sidebar'}
     >
@@ -196,7 +161,7 @@
   </div>
 
   <button
-    onclick={() => handleToggleSplitView()}
+    onclick={onToggleSplitView}
     class="cursor-pointer rounded p-1 hover:bg-gray-200"
     title={isSplitView ? 'Hide Preview' : 'Show Preview'}
   >
@@ -205,11 +170,11 @@
 
   <div class="mx-1 h-6 border-l"></div>
 
-  <button onclick={handleUndo} class="cursor-pointer rounded p-1 hover:bg-gray-200" title="Undo">
+  <button onclick={onUndo} class="cursor-pointer rounded p-1 hover:bg-gray-200" title="Undo">
     <Undo size={20} />
   </button>
 
-  <button onclick={handleRedo} class="cursor-pointer rounded p-1 hover:bg-gray-200" title="Redo">
+  <button onclick={onRedo} class="cursor-pointer rounded p-1 hover:bg-gray-200" title="Redo">
     <Redo size={20} />
   </button>
 
@@ -226,7 +191,7 @@
     </button>
 
     {#if showHeadingMenu}
-      <div class="absolute top-18 left-38 z-60 mt-1 w-40 rounded border bg-white shadow-lg">
+      <div class="absolute top-23 left-35 z-60 mt-1 w-40 rounded border bg-white shadow-lg">
         <button
           onclick={() => {
             formatHeading(1);
@@ -396,7 +361,7 @@
     </button>
 
     <button
-      onclick={() => handleToggleFullScreen()}
+      onclick={onToggleFullScreen}
       class="mr-2 cursor-pointer rounded p-1 hover:bg-gray-200"
       title={isFullScreen ? 'Exit Full Screen' : 'Full Screen'}
     >
@@ -408,7 +373,7 @@
     </button>
 
     <button
-      onclick={() => handleSaveToDisk()}
+      onclick={onSaveToDisk}
       class="mr-2 cursor-pointer rounded p-1 hover:bg-gray-200"
       title="Save to Disk"
     >
@@ -433,6 +398,3 @@
     onClose={() => (linkDialogOpen = false)}
   />
 {/if}
-
-<textarea bind:this={editorElement} value={markdown} oninput={handleContentChange} class="hidden"
-></textarea>

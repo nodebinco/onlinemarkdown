@@ -18,19 +18,19 @@
 
   <div class="prose prose-lg max-w-none">
     <h2 class="mt-8 mb-4 border-b border-gray-200 pb-2 text-2xl font-bold">What is Markdown?</h2>
-    <p>
+    <p class="mb-4 text-base text-gray-800">
       Markdown is a lightweight markup language that allows you to write formatted text using plain
       text syntax. It's designed to be easy to read and write, making it perfect for documentation,
       note-taking, and content creation.
     </p>
-    <p>
+    <p class="mb-4 text-base text-gray-800">
       Created by John Gruber in 2004, Markdown has become one of the world's most popular markup
       languages. It's used extensively on platforms like GitHub, Reddit, Stack Overflow, and many
       content management systems.
     </p>
 
     <h2 class="mt-8 mb-4 border-b border-gray-200 pb-2 text-2xl font-bold">Why Use Markdown?</h2>
-    <ul>
+    <ul class="mb-4 text-base text-gray-800">
       <li><strong>Simplicity:</strong> Write content without worrying about complex formatting</li>
       <li><strong>Portability:</strong> Convert to HTML, PDF, or other formats easily</li>
       <li><strong>Readability:</strong> Content is readable even in its raw form</li>
@@ -43,10 +43,10 @@
     <h2 class="mt-8 mb-4 border-b border-gray-200 pb-2 text-2xl font-bold">
       Getting Started with Our Editor
     </h2>
-    <p>
+    <p class="mb-4 text-base text-gray-800">
       Our Markdown editor is designed to make writing and previewing Markdown as simple as possible:
     </p>
-    <ol>
+    <ol class="mb-4 text-base text-gray-800">
       <li><strong>Open the editor</strong> on the home page</li>
       <li><strong>Start typing</strong> your content in the left panel</li>
       <li><strong>See the live preview</strong> on the right panel</li>
@@ -56,7 +56,7 @@
     </ol>
 
     <h3>Editor Features</h3>
-    <ul>
+    <ul class="mb-4 text-base text-gray-800">
       <li><strong>Split View:</strong> Edit and preview your content simultaneously</li>
       <li><strong>Syntax Highlighting:</strong> Makes your Markdown code more readable</li>
       <li><strong>File Management:</strong> Create, edit, and organize multiple documents</li>
@@ -112,7 +112,7 @@
     </div>
 
     <h2 class="mt-8 mb-4 border-b border-gray-200 pb-2 text-2xl font-bold">Best Practices</h2>
-    <ul>
+    <ul class="mb-4 text-base text-gray-800">
       <li>
         <strong>Keep it simple:</strong> Use the simplest syntax that achieves your formatting goals
       </li>
@@ -132,8 +132,10 @@
     <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
       <div class="rounded-lg border border-zinc-200 p-4">
         <h3 class="mb-2 text-xl font-semibold">Documentation</h3>
-        <p>Create clear, well-structured documentation for software, products, or processes.</p>
-        <ul class="mt-2 list-disc pl-5">
+        <p class="mb-4 text-base text-gray-800">
+          Create clear, well-structured documentation for software, products, or processes.
+        </p>
+        <ul class="mt-2 list-disc pl-5 text-base text-gray-800">
           <li>README files</li>
           <li>API documentation</li>
           <li>User guides</li>
@@ -142,8 +144,10 @@
       </div>
       <div class="rounded-lg border border-zinc-200 p-4">
         <h3 class="mb-2 text-xl font-semibold">Note-Taking</h3>
-        <p>Take organized, formatted notes that are easy to review and share.</p>
-        <ul class="mt-2 list-disc pl-5">
+        <p class="mb-4 text-base text-gray-800">
+          Take organized, formatted notes that are easy to review and share.
+        </p>
+        <ul class="mt-2 list-disc pl-5 text-base text-gray-800">
           <li>Meeting notes</li>
           <li>Study notes</li>
           <li>Research notes</li>
@@ -152,8 +156,10 @@
       </div>
       <div class="rounded-lg border border-zinc-200 p-4">
         <h3 class="mb-2 text-xl font-semibold">Content Creation</h3>
-        <p>Write blog posts, articles, and other content with clean formatting.</p>
-        <ul class="mt-2 list-disc pl-5">
+        <p class="mb-4 text-base text-gray-800">
+          Write blog posts, articles, and other content with clean formatting.
+        </p>
+        <ul class="mt-2 list-disc pl-5 text-base text-gray-800">
           <li>Blog posts</li>
           <li>Articles</li>
           <li>Newsletters</li>
@@ -163,8 +169,8 @@
     </div>
 
     <h2 class="mt-8 mb-4 border-b border-gray-200 pb-2 text-2xl font-bold">Next Steps</h2>
-    <p>Ready to learn more? Check out our other guides:</p>
-    <ul>
+    <p class="mb-4 text-base text-gray-800">Ready to learn more? Check out our other guides:</p>
+    <ul class="mb-4 text-base text-gray-800">
       <li>
         <a href="/syntax">Basic Syntax Guide</a> - Learn the fundamental Markdown elements in detail
       </li>
@@ -175,7 +181,7 @@
 
     <div class="mt-8 rounded-lg bg-blue-50 p-6">
       <h2 class="mb-4 text-2xl font-bold text-blue-800">Start Creating Now</h2>
-      <p class="mb-4 text-blue-700">
+      <p class="mb-4 text-base text-blue-700">
         Ready to put your new Markdown knowledge to use? Open our editor and start creating
         beautiful, well-formatted documents in seconds.
       </p>

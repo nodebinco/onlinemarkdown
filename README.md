@@ -30,7 +30,7 @@ This project is built with [Svelte](https://svelte.dev), a radical new approach 
 - [SvelteKit](https://kit.svelte.dev) - Application framework
 - [marked](https://marked.js.org/) - Markdown parser and compiler
 - [marked-highlight
-](https://github.com/markedjs/marked-highlight) - Syntax highlighting
+  ](https://github.com/markedjs/marked-highlight) - Syntax highlighting
 - [mermaid](https://mermaid.js.org/) - Diagramming and charting tool
 - [Bun](https://bun.sh) - JavaScript runtime & package manager for fast development
 
@@ -73,9 +73,8 @@ You can preview the production build with:
 ```shellscript
 bun run preview
 ```
+
 > To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
-
-
 
 ## Contributing
 
