@@ -31,6 +31,7 @@
         <a href="/getting-started" class="hover:text-zinc-300">Getting Started</a>
         <a href="/syntax" class="hover:text-zinc-300">Syntax</a>
         <a href="/cheat-sheet" class="hover:text-zinc-300">Cheat Sheet</a>
+        <a href="/tools" class="hover:text-zinc-300">Tools</a>
 
         <a
           href="/"
@@ -59,6 +60,7 @@
         <a href="/getting-started" class="rounded px-4 py-2 hover:bg-zinc-700">Getting Started</a>
         <a href="/syntax" class="rounded px-4 py-2 hover:bg-zinc-700">Syntax</a>
         <a href="/cheat-sheet" class="rounded px-4 py-2 hover:bg-zinc-700">Cheat Sheet</a>
+        <a href="/tools" class="rounded px-4 py-2 hover:bg-zinc-700">Tools</a>
 
         <a
           href="/"

@@ -177,6 +177,9 @@
       <li>
         <a href="/cheat-sheet">Cheat Sheet</a> - Quick reference for all Markdown syntax
       </li>
+      <li>
+        <a href="/tools">Recommended Tools</a> - UTC clock, time zone converter, and more
+      </li>
     </ul>
 
     <div class="mt-8 rounded-lg bg-blue-50 p-6">

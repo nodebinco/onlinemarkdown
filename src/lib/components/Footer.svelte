@@ -1,6 +1,9 @@
 <footer class="border-t border-gray-200 bg-gray-100">
   <div class="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
-    <ul class="flex justify-center space-x-4">
+    <ul class="flex flex-wrap justify-center gap-x-4 gap-y-2">
+      <li>
+        <a href="/tools" class="text-base text-gray-500 hover:text-gray-900">Tools</a>
+      </li>
       <li>
         <a href="/about" class="text-base text-gray-500 hover:text-gray-900">About Us</a>
       </li>
