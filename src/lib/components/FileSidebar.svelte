@@ -1,5 +1,9 @@
 <script lang="ts">
-  import { FileText, Plus, Check, X, Pencil, Trash2, FileEdit } from 'lucide-svelte';
+  import * as m from '$lib/paraglide/messages';
+  import { getLocaleStore } from '$lib/i18n';
+  import { FileText, Plus, Check, X, Pencil, Trash2 } from 'lucide-svelte';
+
+  const localeStore = getLocaleStore();
 
   let { currentFile, files, onNewFile, onDeleteFile, onFileSelect, onFileRename } = $props();
 
@@ -39,11 +43,11 @@
   class="flex h-full w-64 flex-shrink-0 flex-col border-r border-gray-300 bg-gray-100 transition-all duration-300 ease-in-out"
 >
   <div class="flex items-center justify-between border-b border-gray-300 bg-gray-200 p-4">
-    <h2 class="text-lg font-semibold">Files</h2>
+    <h2 class="text-lg font-semibold">{m.sidebar_files({}, { locale: $localeStore })}</h2>
     <button
       onclick={() => onNewFile()}
       class="cursor-pointer rounded p-1 hover:bg-gray-300"
-      title="New File"
+      title={m.sidebar_newFile({}, { locale: $localeStore })}
     >
       <Plus size={20} />
     </button>
@@ -52,7 +56,7 @@
   <div class="flex-1 overflow-auto">
     {#if sortedFiles.length === 0}
       <div class="p-4 text-center text-gray-500">
-        No files yet. Create a new file to get started.
+        {m.sidebar_noFiles({}, { locale: $localeStore })}
       </div>
     {:else}
       <ul class="divide-y">

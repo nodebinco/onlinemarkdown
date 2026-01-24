@@ -1,4 +1,6 @@
 <script lang="ts">
+  import * as m from '$lib/paraglide/messages';
+  import { getLocaleStore } from '$lib/i18n';
   import {
     File,
     LayoutGrid,
@@ -40,6 +42,8 @@
     onRedo,
     onNewFile
   } = $props();
+
+  const localeStore = getLocaleStore();
 
   let imageDialogOpen = $state(false);
   let linkDialogOpen = $state(false);
@@ -95,12 +99,18 @@
     if (!printWindow) return;
 
     const previewContent = document.querySelector('.markdown-preview')?.innerHTML || '';
+    const rawTitle = (currentFileName || 'OnlineMarkdown.com').replace(/\.md$/i, '');
+    const title = rawTitle
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
 
     const htmlContent = [
       '<!DOCTYPE html>',
       '<html>',
       '<head>',
-      '<title>OnlineMarkdown.com</title>',
+      `<title>${title}</title>`,
       '<style>',
       'body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; padding: 20px; max-width: 800px; margin: 0 auto; }',
       'pre { background-color: #f5f5f5; padding: 10px; border-radius: 4px; overflow-x: auto; }',
@@ -146,7 +156,7 @@
     <button
       onclick={onNewFile}
       class="cursor-pointer rounded p-1 hover:bg-gray-200"
-      title="New File"
+      title={m.toolbar_newFile({}, { locale: $localeStore })}
     >
       <File size={24} />
     </button>
@@ -154,7 +164,7 @@
     <button
       onclick={onToggleSidebar}
       class="ml-1 cursor-pointer rounded p-1 hover:bg-gray-200"
-      title={isSidebarOpen ? 'Hide Sidebar' : 'Show Sidebar'}
+      title={isSidebarOpen ? m.toolbar_hideSidebar({}, { locale: $localeStore }) : m.toolbar_showSidebar({}, { locale: $localeStore })}
     >
       <LayoutGrid size={24} />
     </button>
@@ -163,18 +173,18 @@
   <button
     onclick={onToggleSplitView}
     class="cursor-pointer rounded p-1 hover:bg-gray-200"
-    title={isSplitView ? 'Hide Preview' : 'Show Preview'}
+    title={isSplitView ? m.toolbar_hidePreview({}, { locale: $localeStore }) : m.toolbar_showPreview({}, { locale: $localeStore })}
   >
     <SplitSquareVertical size={24} />
   </button>
 
   <div class="mx-1 h-6 border-l"></div>
 
-  <button onclick={onUndo} class="cursor-pointer rounded p-1 hover:bg-gray-200" title="Undo">
+  <button onclick={onUndo} class="cursor-pointer rounded p-1 hover:bg-gray-200" title={m.toolbar_undo({}, { locale: $localeStore })}>
     <Undo size={24} />
   </button>
 
-  <button onclick={onRedo} class="cursor-pointer rounded p-1 hover:bg-gray-200" title="Redo">
+  <button onclick={onRedo} class="cursor-pointer rounded p-1 hover:bg-gray-200" title={m.toolbar_redo({}, { locale: $localeStore })}>
     <Redo size={24} />
   </button>
 
@@ -184,7 +194,7 @@
     <button
       onclick={() => (showHeadingMenu = !showHeadingMenu)}
       class="flex cursor-pointer items-center rounded p-1 hover:bg-gray-200"
-      title="Headings"
+      title={m.toolbar_headings({}, { locale: $localeStore })}
     >
       <Heading size={24} />
       <ChevronDown size={16} class="ml-1" />
@@ -199,7 +209,7 @@
           }}
           class="block w-full cursor-pointer px-4 py-2 text-left text-xl font-bold hover:bg-gray-100"
         >
-          Heading 1
+          {m.toolbar_heading1({}, { locale: $localeStore })}
         </button>
         <button
           onclick={() => {
@@ -208,7 +218,7 @@
           }}
           class="block w-full cursor-pointer px-4 py-2 text-left text-lg font-bold hover:bg-gray-100"
         >
-          Heading 2
+          {m.toolbar_heading2({}, { locale: $localeStore })}
         </button>
         <button
           onclick={() => {
@@ -217,7 +227,7 @@
           }}
           class="block w-full cursor-pointer px-4 py-2 text-left text-base font-bold hover:bg-gray-100"
         >
-          Heading 3
+          {m.toolbar_heading3({}, { locale: $localeStore })}
         </button>
         <button
           onclick={() => {
@@ -226,7 +236,7 @@
           }}
           class="block w-full cursor-pointer px-4 py-2 text-left text-sm font-bold hover:bg-gray-100"
         >
-          Heading 4
+          {m.toolbar_heading4({}, { locale: $localeStore })}
         </button>
         <button
           onclick={() => {
@@ -235,7 +245,7 @@
           }}
           class="block w-full cursor-pointer px-4 py-2 text-left text-xs font-bold hover:bg-gray-100"
         >
-          Heading 5
+          {m.toolbar_heading5({}, { locale: $localeStore })}
         </button>
         <button
           onclick={() => {
@@ -244,7 +254,7 @@
           }}
           class="block w-full cursor-pointer px-4 py-2 text-left text-xs font-bold hover:bg-gray-100"
         >
-          Heading 6
+          {m.toolbar_heading6({}, { locale: $localeStore })}
         </button>
       </div>
     {/if}
@@ -253,7 +263,7 @@
   <button
     onclick={formatBold}
     class="cursor-pointer rounded p-1 font-bold hover:bg-gray-200"
-    title="Bold"
+    title={m.toolbar_bold({}, { locale: $localeStore })}
   >
     B
   </button>
@@ -261,7 +271,7 @@
   <button
     onclick={formatItalic}
     class="cursor-pointer rounded p-1 italic hover:bg-gray-200"
-    title="Italic"
+    title={m.toolbar_italic({}, { locale: $localeStore })}
   >
     I
   </button>
@@ -269,7 +279,7 @@
   <button
     onclick={formatStrikethrough}
     class="cursor-pointer rounded p-1 line-through hover:bg-gray-200"
-    title="Strikethrough"
+    title={m.toolbar_strikethrough({}, { locale: $localeStore })}
   >
     S
   </button>
@@ -277,7 +287,7 @@
   <button
     onclick={formatSuperscript}
     class="cursor-pointer rounded p-1 hover:bg-gray-200"
-    title="Superscript"
+    title={m.toolbar_superscript({}, { locale: $localeStore })}
   >
     X<sup>2</sup>
   </button>
@@ -285,7 +295,7 @@
   <button
     onclick={formatSubscript}
     class="cursor-pointer rounded p-1 hover:bg-gray-200"
-    title="Subscript"
+    title={m.toolbar_subscript({}, { locale: $localeStore })}
   >
     X<sub>2</sub>
   </button>
@@ -295,7 +305,7 @@
   <button
     onclick={formatBulletList}
     class="cursor-pointer rounded p-1 hover:bg-gray-200"
-    title="Bullet List"
+    title={m.toolbar_bulletList({}, { locale: $localeStore })}
   >
     <List size={24} />
   </button>
@@ -303,7 +313,7 @@
   <button
     onclick={formatNumberedList}
     class="cursor-pointer rounded p-1 hover:bg-gray-200"
-    title="Numbered List"
+    title={m.toolbar_numberedList({}, { locale: $localeStore })}
   >
     <ListOrdered size={24} />
   </button>
@@ -311,7 +321,7 @@
   <button
     onclick={formatBlockquote}
     class="cursor-pointer rounded p-1 hover:bg-gray-200"
-    title="Quote"
+    title={m.toolbar_quote({}, { locale: $localeStore })}
   >
     <Quote size={24} />
   </button>
@@ -319,12 +329,12 @@
   <button
     onclick={formatCodeBlock}
     class="cursor-pointer rounded p-1 hover:bg-gray-200"
-    title="Code"
+    title={m.toolbar_code({}, { locale: $localeStore })}
   >
     <Code size={24} />
   </button>
 
-  <button onclick={formatTable} class="cursor-pointer rounded p-1 hover:bg-gray-200" title="Table">
+  <button onclick={formatTable} class="cursor-pointer rounded p-1 hover:bg-gray-200" title={m.toolbar_table({}, { locale: $localeStore })}>
     <Table size={24} />
   </button>
 
@@ -334,7 +344,7 @@
       linkDialogOpen = true;
     }}
     class="cursor-pointer rounded p-1 hover:bg-gray-200"
-    title="Link"
+    title={m.toolbar_link({}, { locale: $localeStore })}
   >
     <Link size={24} />
   </button>
@@ -344,7 +354,7 @@
       imageDialogOpen = true;
     }}
     class="cursor-pointer rounded p-1 hover:bg-gray-200"
-    title="Image"
+    title={m.toolbar_image({}, { locale: $localeStore })}
   >
     <Image size={24} />
   </button>
@@ -355,7 +365,7 @@
     <button
       onclick={handlePrint}
       class="mr-2 cursor-pointer rounded p-1 hover:bg-gray-200"
-      title="Print"
+      title={m.toolbar_print({}, { locale: $localeStore })}
     >
       <Printer size={24} />
     </button>
@@ -363,7 +373,7 @@
     <button
       onclick={onToggleFullScreen}
       class="mr-2 cursor-pointer rounded p-1 hover:bg-gray-200"
-      title={isFullScreen ? 'Exit Full Screen' : 'Full Screen'}
+      title={isFullScreen ? m.toolbar_exitFullScreen({}, { locale: $localeStore }) : m.toolbar_fullScreen({}, { locale: $localeStore })}
     >
       {#if isFullScreen}
         <Minimize size={24} />
@@ -375,7 +385,7 @@
     <button
       onclick={onSaveToDisk}
       class="mr-2 cursor-pointer rounded p-1 hover:bg-gray-200"
-      title="Save to Disk"
+      title={m.toolbar_saveToDisk({}, { locale: $localeStore })}
     >
       <Save size={24} />
     </button>

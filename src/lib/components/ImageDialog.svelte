@@ -1,4 +1,9 @@
-<script>
+<script lang="ts">
+  import * as m from '$lib/paraglide/messages';
+  import { getLocaleStore } from '$lib/i18n';
+
+  const localeStore = getLocaleStore();
+
   let { open = false, onInsert, onClose } = $props();
 
   let url = $state('');
@@ -22,27 +27,27 @@
   <div class="fixed inset-0 z-50 flex items-center justify-center rounded-lg">
     <div class="w-full max-w-md rounded-lg border border-gray-300 bg-white shadow-md">
       <div class="border-b border-gray-300 bg-gray-100 p-4">
-        <h2 class="text-lg font-semibold">Insert Image</h2>
+        <h2 class="text-lg font-semibold">{m.imageDialog_title({}, { locale: $localeStore })}</h2>
       </div>
 
       <div class="p-4">
         <div class="grid gap-4">
           <div class="grid grid-cols-4 items-center gap-4">
-            <label for="image-url" class="text-right text-sm font-medium">URL</label>
+            <label for="image-url" class="text-right text-sm font-medium">{m.imageDialog_url({}, { locale: $localeStore })}</label>
             <input
               id="image-url"
               bind:value={url}
-              placeholder="https://example.com/image.jpg"
+              placeholder={m.imageDialog_urlPlaceholder({}, { locale: $localeStore })}
               class="col-span-3 rounded border border-gray-300 p-2"
             />
           </div>
 
           <div class="grid grid-cols-4 items-center gap-4">
-            <label for="image-alt" class="text-right text-sm font-medium">Alt Text</label>
+            <label for="image-alt" class="text-right text-sm font-medium">{m.imageDialog_altText({}, { locale: $localeStore })}</label>
             <input
               id="image-alt"
               bind:value={alt}
-              placeholder="Image description"
+              placeholder={m.imageDialog_altPlaceholder({}, { locale: $localeStore })}
               class="col-span-3 rounded border border-gray-300 p-2"
             />
           </div>
@@ -54,13 +59,13 @@
           class="mr-2 cursor-pointer rounded bg-gray-200 px-4 py-2 hover:bg-gray-300"
           onclick={handleClose}
         >
-          Cancel
+          {m.imageDialog_cancel({}, { locale: $localeStore })}
         </button>
         <button
           class="cursor-pointer rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
           onclick={handleInsert}
         >
-          Insert
+          {m.imageDialog_insert({}, { locale: $localeStore })}
         </button>
       </div>
     </div>
