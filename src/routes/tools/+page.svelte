@@ -1,23 +1,23 @@
 <script lang="ts">
+  import { page } from '$app/stores';
   import * as m from '$lib/paraglide/messages';
   import { localizeHref } from '$lib/paraglide/runtime';
-  import { getLocaleStore } from '$lib/i18n';
 
-  const localeStore = getLocaleStore();
+  const locale = $derived($page.data?.locale ?? 'en');
 </script>
 
 <svelte:head>
-  <title>{m.tools_title({}, { locale: $localeStore })}</title>
-  <meta name="description" content={m.tools_description({}, { locale: $localeStore })} />
-  <meta name="keywords" content={m.tools_keywords({}, { locale: $localeStore })} />
+  <title>{m.tools_title({}, { locale: locale })}</title>
+  <meta name="description" content={m.tools_description({}, { locale: locale })} />
+  <meta name="keywords" content={m.tools_keywords({}, { locale: locale })} />
 </svelte:head>
 
 <div class="mx-auto mt-4 max-w-6xl p-5 font-sans leading-relaxed text-gray-800">
-  <h1 class="mb-8 text-4xl font-bold">{m.tools_h1({}, { locale: $localeStore })}</h1>
+  <h1 class="mb-8 text-4xl font-bold">{m.tools_h1({}, { locale: locale })}</h1>
   <p class="mb-8 text-lg text-gray-600">
-    {m.tools_introPrefix({}, { locale: $localeStore })}<a href={localizeHref('/markdown-to-pdf')} class="text-blue-600 hover:underline" data-sveltekit-reload
-      >{m.tools_introLink({}, { locale: $localeStore })}</a
-    >{m.tools_introSuffix({}, { locale: $localeStore })}
+    {m.tools_introPrefix({}, { locale: locale })}<a href={localizeHref('/markdown-to-pdf')} class="text-blue-600 hover:underline" data-sveltekit-reload
+      >{m.tools_introLink({}, { locale: locale })}</a
+    >{m.tools_introSuffix({}, { locale: locale })}
   </p>
 
   <div class="prose prose-lg max-w-none">
@@ -28,15 +28,15 @@
         data-sveltekit-reload
       >
         <h2 class="mb-1.5 text-xl font-bold text-slate-800 group-hover:text-emerald-600">
-          {m.tools_md2pdfTitle({}, { locale: $localeStore })}
+          {m.tools_md2pdfTitle({}, { locale: locale })}
         </h2>
         <p class="mb-4 text-[15px] leading-relaxed text-slate-600">
-          {m.tools_md2pdfDesc({}, { locale: $localeStore })}
+          {m.tools_md2pdfDesc({}, { locale: locale })}
         </p>
         <span
           class="inline-flex items-center gap-1.5 text-sm font-medium text-emerald-600 no-underline"
         >
-          {m.tools_md2pdfCta({}, { locale: $localeStore })}
+          {m.tools_md2pdfCta({}, { locale: locale })}
           <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path
               stroke-linecap="round"
@@ -56,15 +56,15 @@
         class="group block rounded-2xl bg-gradient-to-br from-slate-50 to-blue-50/50 p-6 shadow-sm ring-1 ring-slate-200/60 transition hover:shadow-md hover:ring-slate-300/80"
       >
         <h2 class="mb-1.5 text-xl font-bold text-slate-800 group-hover:text-blue-600">
-          {m.tools_timeutcnowTitle({}, { locale: $localeStore })}
+          {m.tools_timeutcnowTitle({}, { locale: locale })}
         </h2>
         <p class="mb-4 text-[15px] leading-relaxed text-slate-600">
-          {m.tools_timeutcnowDesc({}, { locale: $localeStore })}
+          {m.tools_timeutcnowDesc({}, { locale: locale })}
         </p>
         <span
           class="inline-flex items-center gap-1.5 text-sm font-medium text-blue-600 no-underline"
         >
-          {m.tools_visitTimeutcnow({}, { locale: $localeStore })}
+          {m.tools_visitTimeutcnow({}, { locale: locale })}
           <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path
               stroke-linecap="round"
@@ -78,23 +78,23 @@
     </div>
 
     <div class="mt-12 rounded-2xl bg-slate-50/80 px-6 py-5 not-prose">
-      <h2 class="mb-2 text-lg font-bold text-slate-800">{m.tools_suggestTitle({}, { locale: $localeStore })}</h2>
+      <h2 class="mb-2 text-lg font-bold text-slate-800">{m.tools_suggestTitle({}, { locale: locale })}</h2>
       <p class="text-[15px] text-slate-600">
-        {m.tools_suggestPrefix({}, { locale: $localeStore })}<a href={localizeHref('/contact')} class="text-blue-600 hover:underline" data-sveltekit-reload
-          >{m.tools_suggestLink({}, { locale: $localeStore })}</a
-        >{m.tools_suggestSuffix({}, { locale: $localeStore })}
+        {m.tools_suggestPrefix({}, { locale: locale })}<a href={localizeHref('/contact')} class="text-blue-600 hover:underline" data-sveltekit-reload
+          >{m.tools_suggestLink({}, { locale: locale })}</a
+        >{m.tools_suggestSuffix({}, { locale: locale })}
       </p>
     </div>
 
     <div class="mt-8 flex flex-wrap gap-4">
       <a href={localizeHref('/markdown-to-pdf')} class="text-blue-600 hover:underline" data-sveltekit-reload
-        >{m.tools_md2pdfTitle({}, { locale: $localeStore })}</a
+        >{m.tools_md2pdfTitle({}, { locale: locale })}</a
       >
       <a href={localizeHref('/getting-started')} class="text-blue-600 hover:underline" data-sveltekit-reload
-        >{m.tools_backGettingStarted({}, { locale: $localeStore })}</a
+        >{m.tools_backGettingStarted({}, { locale: locale })}</a
       >
       <a href={localizeHref('/cheat-sheet')} class="text-blue-600 hover:underline" data-sveltekit-reload
-        >{m.tools_cheatSheet({}, { locale: $localeStore })}</a
+        >{m.tools_cheatSheet({}, { locale: locale })}</a
       >
     </div>
   </div>

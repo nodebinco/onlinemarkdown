@@ -1,8 +1,8 @@
 <script lang="ts">
+  import { page } from '$app/stores';
   import * as m from '$lib/paraglide/messages';
-  import { getLocaleStore } from '$lib/i18n';
 
-  const localeStore = getLocaleStore();
+  const locale = $derived($page.data?.locale ?? 'en');
 
   let { open = false, selectedText = '', onInsert, onClose } = $props();
 
@@ -33,27 +33,27 @@
   <div class="fixed inset-0 z-50 flex items-center justify-center rounded-lg">
     <div class="w-full max-w-md rounded-lg border border-gray-300 bg-white shadow-md">
       <div class="border-b border-gray-300 bg-gray-100 p-4">
-        <h2 class="text-lg font-semibold">{m.linkDialog_title({}, { locale: $localeStore })}</h2>
+        <h2 class="text-lg font-semibold">{m.linkDialog_title({}, { locale: locale })}</h2>
       </div>
 
       <div class="p-4">
         <div class="grid gap-4">
           <div class="grid grid-cols-4 items-center gap-4">
-            <label for="link-text" class="text-right text-sm font-medium">{m.linkDialog_text({}, { locale: $localeStore })}</label>
+            <label for="link-text" class="text-right text-sm font-medium">{m.linkDialog_text({}, { locale: locale })}</label>
             <input
               id="link-text"
               bind:value={text}
-              placeholder={m.linkDialog_textPlaceholder({}, { locale: $localeStore })}
+              placeholder={m.linkDialog_textPlaceholder({}, { locale: locale })}
               class="col-span-3 rounded border border-gray-300 p-2"
             />
           </div>
 
           <div class="grid grid-cols-4 items-center gap-4">
-            <label for="link-url" class="text-right text-sm font-medium">{m.linkDialog_url({}, { locale: $localeStore })}</label>
+            <label for="link-url" class="text-right text-sm font-medium">{m.linkDialog_url({}, { locale: locale })}</label>
             <input
               id="link-url"
               bind:value={url}
-              placeholder={m.linkDialog_urlPlaceholder({}, { locale: $localeStore })}
+              placeholder={m.linkDialog_urlPlaceholder({}, { locale: locale })}
               class="col-span-3 rounded border border-gray-300 p-2"
             />
           </div>
@@ -65,13 +65,13 @@
           class="mr-2 cursor-pointer rounded bg-gray-200 px-4 py-2 hover:bg-gray-300"
           onclick={handleClose}
         >
-          {m.linkDialog_cancel({}, { locale: $localeStore })}
+          {m.linkDialog_cancel({}, { locale: locale })}
         </button>
         <button
           class="cursor-pointer rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
           onclick={handleInsert}
         >
-          {m.linkDialog_insert({}, { locale: $localeStore })}
+          {m.linkDialog_insert({}, { locale: locale })}
         </button>
       </div>
     </div>

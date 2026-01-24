@@ -1,35 +1,35 @@
 <script lang="ts">
+  import { page } from '$app/stores';
   import * as m from '$lib/paraglide/messages';
-  import { getLocaleStore } from '$lib/i18n';
 
-  const localeStore = getLocaleStore();
+  const locale = $derived($page.data?.locale ?? 'en');
 </script>
 
 <svelte:head>
-  <title>{m.syntax_title({}, { locale: $localeStore })}</title>
-  <meta name="description" content={m.syntax_description({}, { locale: $localeStore })} />
-  <meta name="keywords" content={m.syntax_keywords({}, { locale: $localeStore })} />
+  <title>{m.syntax_title({}, { locale: locale })}</title>
+  <meta name="description" content={m.syntax_description({}, { locale: locale })} />
+  <meta name="keywords" content={m.syntax_keywords({}, { locale: locale })} />
 </svelte:head>
 
 <div class="max-w-6xl mx-auto mt-4 p-5 font-sans leading-relaxed text-gray-800">
-  <h1 class="text-4xl font-bold mb-4">{m.syntax_h1({}, { locale: $localeStore })}</h1>
-  <p class="text-xl text-gray-600 mb-8">{m.syntax_subtitle({}, { locale: $localeStore })}</p>
+  <h1 class="text-4xl font-bold mb-4">{m.syntax_h1({}, { locale: locale })}</h1>
+  <p class="text-xl text-gray-600 mb-8">{m.syntax_subtitle({}, { locale: locale })}</p>
 
   <section id="overview" class="mb-8">
-    <h2 class="text-2xl font-bold mt-8 mb-4 pb-2 border-b border-gray-200">{m.syntax_overviewTitle({}, { locale: $localeStore })}</h2>
-    <p class="mb-4">{m.syntax_overview1({}, { locale: $localeStore })}</p>
-    <p class="mb-4">{m.syntax_overview2({}, { locale: $localeStore })}</p>
+    <h2 class="text-2xl font-bold mt-8 mb-4 pb-2 border-b border-gray-200">{m.syntax_overviewTitle({}, { locale: locale })}</h2>
+    <p class="mb-4">{m.syntax_overview1({}, { locale: locale })}</p>
+    <p class="mb-4">{m.syntax_overview2({}, { locale: locale })}</p>
   </section>
 
   <section id="headings" class="mb-8">
-    <h2 class="text-2xl font-bold mt-8 mb-4 pb-2 border-b border-gray-200">{m.syntax_headingsTitle({}, { locale: $localeStore })}</h2>
-    <p class="mb-4">{m.syntax_headingsIntro({}, { locale: $localeStore })}</p>
+    <h2 class="text-2xl font-bold mt-8 mb-4 pb-2 border-b border-gray-200">{m.syntax_headingsTitle({}, { locale: locale })}</h2>
+    <p class="mb-4">{m.syntax_headingsIntro({}, { locale: locale })}</p>
 
     <div class="border border-gray-300 rounded-md overflow-hidden mb-6">
       <div class="grid grid-cols-1 md:grid-cols-3 bg-gray-100 font-bold">
-        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: $localeStore })}</div>
-        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_html({}, { locale: $localeStore })}</div>
-        <div class="p-3">{m.syntax_renderedOutput({}, { locale: $localeStore })}</div>
+        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: locale })}</div>
+        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_html({}, { locale: locale })}</div>
+        <div class="p-3">{m.syntax_renderedOutput({}, { locale: locale })}</div>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 border-t border-gray-300">
         <div class="p-3 font-mono text-sm bg-gray-50 whitespace-pre-wrap break-all border-b md:border-b-0 md:border-r border-gray-300"># Heading level 1</div>
@@ -65,14 +65,14 @@
   </section>
 
   <section id="paragraphs" class="mb-8">
-    <h2 class="text-2xl font-bold mt-8 mb-4 pb-2 border-b border-gray-200">{m.syntax_paragraphsTitle({}, { locale: $localeStore })}</h2>
-    <p class="mb-4">{m.syntax_paragraphsIntro({}, { locale: $localeStore })}</p>
+    <h2 class="text-2xl font-bold mt-8 mb-4 pb-2 border-b border-gray-200">{m.syntax_paragraphsTitle({}, { locale: locale })}</h2>
+    <p class="mb-4">{m.syntax_paragraphsIntro({}, { locale: locale })}</p>
 
     <div class="border border-gray-300 rounded-md overflow-hidden mb-6">
       <div class="grid grid-cols-1 md:grid-cols-3 bg-gray-100 font-bold">
-        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: $localeStore })}</div>
-        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_html({}, { locale: $localeStore })}</div>
-        <div class="p-3">{m.syntax_renderedOutput({}, { locale: $localeStore })}</div>
+        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: locale })}</div>
+        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_html({}, { locale: locale })}</div>
+        <div class="p-3">{m.syntax_renderedOutput({}, { locale: locale })}</div>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 border-t border-gray-300">
         <div class="p-3 font-mono text-sm bg-gray-50 whitespace-pre-wrap break-all border-b md:border-b-0 md:border-r border-gray-300">
@@ -89,14 +89,14 @@
   </section>
 
   <section id="line-breaks" class="mb-8">
-    <h2 class="text-2xl font-bold mt-8 mb-4 pb-2 border-b border-gray-200">{m.syntax_lineBreaksTitle({}, { locale: $localeStore })}</h2>
-    <p class="mb-4">{m.syntax_lineBreaksIntro({}, { locale: $localeStore })}</p>
+    <h2 class="text-2xl font-bold mt-8 mb-4 pb-2 border-b border-gray-200">{m.syntax_lineBreaksTitle({}, { locale: locale })}</h2>
+    <p class="mb-4">{m.syntax_lineBreaksIntro({}, { locale: locale })}</p>
 
     <div class="border border-gray-300 rounded-md overflow-hidden mb-6">
       <div class="grid grid-cols-1 md:grid-cols-3 bg-gray-100 font-bold">
-        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: $localeStore })}</div>
-        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_html({}, { locale: $localeStore })}</div>
-        <div class="p-3">{m.syntax_renderedOutput({}, { locale: $localeStore })}</div>
+        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: locale })}</div>
+        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_html({}, { locale: locale })}</div>
+        <div class="p-3">{m.syntax_renderedOutput({}, { locale: locale })}</div>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 border-t border-gray-300">
         <div class="p-3 font-mono text-sm bg-gray-50 whitespace-pre-wrap break-all border-b md:border-b-0 md:border-r border-gray-300">
@@ -114,17 +114,17 @@
   </section>
 
   <section id="emphasis" class="mb-8">
-    <h2 class="text-2xl font-bold mt-8 mb-4 pb-2 border-b border-gray-200">{m.syntax_emphasisTitle({}, { locale: $localeStore })}</h2>
-    <p class="mb-4">{m.syntax_emphasisIntro({}, { locale: $localeStore })}</p>
+    <h2 class="text-2xl font-bold mt-8 mb-4 pb-2 border-b border-gray-200">{m.syntax_emphasisTitle({}, { locale: locale })}</h2>
+    <p class="mb-4">{m.syntax_emphasisIntro({}, { locale: locale })}</p>
 
-    <h3 class="text-xl font-bold mt-6 mb-3">{m.syntax_boldTitle({}, { locale: $localeStore })}</h3>
-    <p class="mb-4">{m.syntax_boldIntro({}, { locale: $localeStore })}</p>
+    <h3 class="text-xl font-bold mt-6 mb-3">{m.syntax_boldTitle({}, { locale: locale })}</h3>
+    <p class="mb-4">{m.syntax_boldIntro({}, { locale: locale })}</p>
 
     <div class="border border-gray-300 rounded-md overflow-hidden mb-6">
       <div class="grid grid-cols-1 md:grid-cols-3 bg-gray-100 font-bold">
-        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: $localeStore })}</div>
-        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_html({}, { locale: $localeStore })}</div>
-        <div class="p-3">{m.syntax_renderedOutput({}, { locale: $localeStore })}</div>
+        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: locale })}</div>
+        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_html({}, { locale: locale })}</div>
+        <div class="p-3">{m.syntax_renderedOutput({}, { locale: locale })}</div>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 border-t border-gray-300">
         <div class="p-3 font-mono text-sm bg-gray-50 whitespace-pre-wrap break-all border-b md:border-b-0 md:border-r border-gray-300">I just love **bold text**.</div>
@@ -138,14 +138,14 @@
       </div>
     </div>
 
-    <h3 class="text-xl font-bold mt-6 mb-3">{m.syntax_italicTitle({}, { locale: $localeStore })}</h3>
-    <p class="mb-4">{m.syntax_italicIntro({}, { locale: $localeStore })}</p>
+    <h3 class="text-xl font-bold mt-6 mb-3">{m.syntax_italicTitle({}, { locale: locale })}</h3>
+    <p class="mb-4">{m.syntax_italicIntro({}, { locale: locale })}</p>
 
     <div class="border border-gray-300 rounded-md overflow-hidden mb-6">
       <div class="grid grid-cols-1 md:grid-cols-3 bg-gray-100 font-bold">
-        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: $localeStore })}</div>
-        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_html({}, { locale: $localeStore })}</div>
-        <div class="p-3">{m.syntax_renderedOutput({}, { locale: $localeStore })}</div>
+        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: locale })}</div>
+        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_html({}, { locale: locale })}</div>
+        <div class="p-3">{m.syntax_renderedOutput({}, { locale: locale })}</div>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 border-t border-gray-300">
         <div class="p-3 font-mono text-sm bg-gray-50 whitespace-pre-wrap break-all border-b md:border-b-0 md:border-r border-gray-300">The *cat* meows.</div>
@@ -159,14 +159,14 @@
       </div>
     </div>
 
-    <h3 class="text-xl font-bold mt-6 mb-3">{m.syntax_boldItalicTitle({}, { locale: $localeStore })}</h3>
-    <p class="mb-4">{m.syntax_boldItalicIntro({}, { locale: $localeStore })}</p>
+    <h3 class="text-xl font-bold mt-6 mb-3">{m.syntax_boldItalicTitle({}, { locale: locale })}</h3>
+    <p class="mb-4">{m.syntax_boldItalicIntro({}, { locale: locale })}</p>
 
     <div class="border border-gray-300 rounded-md overflow-hidden mb-6">
       <div class="grid grid-cols-1 md:grid-cols-3 bg-gray-100 font-bold">
-        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: $localeStore })}</div>
-        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_html({}, { locale: $localeStore })}</div>
-        <div class="p-3">{m.syntax_renderedOutput({}, { locale: $localeStore })}</div>
+        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: locale })}</div>
+        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_html({}, { locale: locale })}</div>
+        <div class="p-3">{m.syntax_renderedOutput({}, { locale: locale })}</div>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 border-t border-gray-300">
         <div class="p-3 font-mono text-sm bg-gray-50 whitespace-pre-wrap break-all border-b md:border-b-0 md:border-r border-gray-300">This text is ***really important***.</div>
@@ -182,14 +182,14 @@
   </section>
 
   <section id="blockquotes" class="mb-8">
-    <h2 class="text-2xl font-bold mt-8 mb-4 pb-2 border-b border-gray-200">{m.syntax_blockquotesTitle({}, { locale: $localeStore })}</h2>
-    <p class="mb-4">{m.syntax_blockquotesIntro({}, { locale: $localeStore })}</p>
+    <h2 class="text-2xl font-bold mt-8 mb-4 pb-2 border-b border-gray-200">{m.syntax_blockquotesTitle({}, { locale: locale })}</h2>
+    <p class="mb-4">{m.syntax_blockquotesIntro({}, { locale: locale })}</p>
 
     <div class="border border-gray-300 rounded-md overflow-hidden mb-6">
       <div class="grid grid-cols-1 md:grid-cols-3 bg-gray-100 font-bold">
-        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: $localeStore })}</div>
-        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_html({}, { locale: $localeStore })}</div>
-        <div class="p-3">{m.syntax_renderedOutput({}, { locale: $localeStore })}</div>
+        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: locale })}</div>
+        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_html({}, { locale: locale })}</div>
+        <div class="p-3">{m.syntax_renderedOutput({}, { locale: locale })}</div>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 border-t border-gray-300">
         <div class="p-3 font-mono text-sm bg-gray-50 whitespace-pre-wrap break-all border-b md:border-b-0 md:border-r border-gray-300">> Dorothy followed her through many of the beautiful rooms in her castle.</div>
@@ -202,13 +202,13 @@
       </div>
     </div>
 
-    <h3 class="text-xl font-bold mt-6 mb-3">{m.syntax_nestedBlockquotesTitle({}, { locale: $localeStore })}</h3>
-    <p class="mb-4">{m.syntax_nestedBlockquotesIntro({}, { locale: $localeStore })}</p>
+    <h3 class="text-xl font-bold mt-6 mb-3">{m.syntax_nestedBlockquotesTitle({}, { locale: locale })}</h3>
+    <p class="mb-4">{m.syntax_nestedBlockquotesIntro({}, { locale: locale })}</p>
 
     <div class="border border-gray-300 rounded-md overflow-hidden mb-6">
       <div class="grid grid-cols-1 md:grid-cols-2 bg-gray-100 font-bold">
-        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: $localeStore })}</div>
-        <div class="p-3">{m.syntax_renderedOutput({}, { locale: $localeStore })}</div>
+        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: locale })}</div>
+        <div class="p-3">{m.syntax_renderedOutput({}, { locale: locale })}</div>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 border-t border-gray-300">
         <div class="p-3 font-mono text-sm bg-gray-50 whitespace-pre-wrap break-all border-b md:border-b-0 md:border-r border-gray-300">
@@ -227,17 +227,17 @@
   </section>
 
   <section id="lists" class="mb-8">
-    <h2 class="text-2xl font-bold mt-8 mb-4 pb-2 border-b border-gray-200">{m.syntax_listsTitle({}, { locale: $localeStore })}</h2>
-    <p class="mb-4">{m.syntax_listsIntro({}, { locale: $localeStore })}</p>
+    <h2 class="text-2xl font-bold mt-8 mb-4 pb-2 border-b border-gray-200">{m.syntax_listsTitle({}, { locale: locale })}</h2>
+    <p class="mb-4">{m.syntax_listsIntro({}, { locale: locale })}</p>
 
-    <h3 class="text-xl font-bold mt-6 mb-3">{m.syntax_orderedListsTitle({}, { locale: $localeStore })}</h3>
-    <p class="mb-4">{m.syntax_orderedListsIntro({}, { locale: $localeStore })}</p>
+    <h3 class="text-xl font-bold mt-6 mb-3">{m.syntax_orderedListsTitle({}, { locale: locale })}</h3>
+    <p class="mb-4">{m.syntax_orderedListsIntro({}, { locale: locale })}</p>
 
     <div class="border border-gray-300 rounded-md overflow-hidden mb-6">
       <div class="grid grid-cols-1 md:grid-cols-3 bg-gray-100 font-bold">
-        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: $localeStore })}</div>
-        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_html({}, { locale: $localeStore })}</div>
-        <div class="p-3">{m.syntax_renderedOutput({}, { locale: $localeStore })}</div>
+        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: locale })}</div>
+        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_html({}, { locale: locale })}</div>
+        <div class="p-3">{m.syntax_renderedOutput({}, { locale: locale })}</div>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 border-t border-gray-300">
         <div class="p-3 font-mono text-sm bg-gray-50 whitespace-pre-wrap break-all border-b md:border-b-0 md:border-r border-gray-300">
@@ -257,14 +257,14 @@
       </div>
     </div>
 
-    <h3 class="text-xl font-bold mt-6 mb-3">{m.syntax_unorderedListsTitle({}, { locale: $localeStore })}</h3>
-    <p class="mb-4">{m.syntax_unorderedListsIntro({}, { locale: $localeStore })}</p>
+    <h3 class="text-xl font-bold mt-6 mb-3">{m.syntax_unorderedListsTitle({}, { locale: locale })}</h3>
+    <p class="mb-4">{m.syntax_unorderedListsIntro({}, { locale: locale })}</p>
 
     <div class="border border-gray-300 rounded-md overflow-hidden mb-6">
       <div class="grid grid-cols-1 md:grid-cols-3 bg-gray-100 font-bold">
-        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: $localeStore })}</div>
-        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_html({}, { locale: $localeStore })}</div>
-        <div class="p-3">{m.syntax_renderedOutput({}, { locale: $localeStore })}</div>
+        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: locale })}</div>
+        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_html({}, { locale: locale })}</div>
+        <div class="p-3">{m.syntax_renderedOutput({}, { locale: locale })}</div>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 border-t border-gray-300">
         <div class="p-3 font-mono text-sm bg-gray-50 whitespace-pre-wrap break-all border-b md:border-b-0 md:border-r border-gray-300">
@@ -294,14 +294,14 @@
   </section>
 
   <section id="code" class="mb-8">
-    <h2 class="text-2xl font-bold mt-8 mb-4 pb-2 border-b border-gray-200">{m.syntax_codeTitle({}, { locale: $localeStore })}</h2>
-    <p class="mb-4">{m.syntax_codeIntro({}, { locale: $localeStore })}</p>
+    <h2 class="text-2xl font-bold mt-8 mb-4 pb-2 border-b border-gray-200">{m.syntax_codeTitle({}, { locale: locale })}</h2>
+    <p class="mb-4">{m.syntax_codeIntro({}, { locale: locale })}</p>
 
     <div class="border border-gray-300 rounded-md overflow-hidden mb-6">
       <div class="grid grid-cols-1 md:grid-cols-3 bg-gray-100 font-bold">
-        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: $localeStore })}</div>
-        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_html({}, { locale: $localeStore })}</div>
-        <div class="p-3">{m.syntax_renderedOutput({}, { locale: $localeStore })}</div>
+        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: locale })}</div>
+        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_html({}, { locale: locale })}</div>
+        <div class="p-3">{m.syntax_renderedOutput({}, { locale: locale })}</div>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 border-t border-gray-300">
         <div class="p-3 font-mono text-sm bg-gray-50 whitespace-pre-wrap break-all border-b md:border-b-0 md:border-r border-gray-300">At the command prompt, type `nano`.</div>
@@ -310,13 +310,13 @@
       </div>
     </div>
 
-    <h3 class="text-xl font-bold mt-6 mb-3">{m.syntax_codeBlocksTitle({}, { locale: $localeStore })}</h3>
-    <p class="mb-4">{m.syntax_codeBlocksIntro({}, { locale: $localeStore })}</p>
+    <h3 class="text-xl font-bold mt-6 mb-3">{m.syntax_codeBlocksTitle({}, { locale: locale })}</h3>
+    <p class="mb-4">{m.syntax_codeBlocksIntro({}, { locale: locale })}</p>
 
     <div class="border border-gray-300 rounded-md overflow-hidden mb-6">
       <div class="grid grid-cols-1 md:grid-cols-2 bg-gray-100 font-bold">
-        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: $localeStore })}</div>
-        <div class="p-3">{m.syntax_renderedOutput({}, { locale: $localeStore })}</div>
+        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: locale })}</div>
+        <div class="p-3">{m.syntax_renderedOutput({}, { locale: locale })}</div>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 border-t border-gray-300">
         <div class="p-3 font-mono text-sm bg-gray-50 whitespace-pre-wrap break-all border-b md:border-b-0 md:border-r border-gray-300">
@@ -340,14 +340,14 @@
   </section>
 
   <section id="horizontal-rules" class="mb-8">
-    <h2 class="text-2xl font-bold mt-8 mb-4 pb-2 border-b border-gray-200">{m.syntax_horizontalRulesTitle({}, { locale: $localeStore })}</h2>
-    <p class="mb-4">{m.syntax_horizontalRulesIntro({}, { locale: $localeStore })}</p>
+    <h2 class="text-2xl font-bold mt-8 mb-4 pb-2 border-b border-gray-200">{m.syntax_horizontalRulesTitle({}, { locale: locale })}</h2>
+    <p class="mb-4">{m.syntax_horizontalRulesIntro({}, { locale: locale })}</p>
 
     <div class="border border-gray-300 rounded-md overflow-hidden mb-6">
       <div class="grid grid-cols-1 md:grid-cols-3 bg-gray-100 font-bold">
-        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: $localeStore })}</div>
-        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_html({}, { locale: $localeStore })}</div>
-        <div class="p-3">{m.syntax_renderedOutput({}, { locale: $localeStore })}</div>
+        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: locale })}</div>
+        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_html({}, { locale: locale })}</div>
+        <div class="p-3">{m.syntax_renderedOutput({}, { locale: locale })}</div>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 border-t border-gray-300">
         <div class="p-3 font-mono text-sm bg-gray-50 whitespace-pre-wrap break-all border-b md:border-b-0 md:border-r border-gray-300">***</div>
@@ -368,14 +368,14 @@
   </section>
 
   <section id="links" class="mb-8">
-    <h2 class="text-2xl font-bold mt-8 mb-4 pb-2 border-b border-gray-200">{m.syntax_linksTitle({}, { locale: $localeStore })}</h2>
-    <p class="mb-4">{m.syntax_linksIntro({}, { locale: $localeStore })}</p>
+    <h2 class="text-2xl font-bold mt-8 mb-4 pb-2 border-b border-gray-200">{m.syntax_linksTitle({}, { locale: locale })}</h2>
+    <p class="mb-4">{m.syntax_linksIntro({}, { locale: locale })}</p>
 
     <div class="border border-gray-300 rounded-md overflow-hidden mb-6">
       <div class="grid grid-cols-1 md:grid-cols-3 bg-gray-100 font-bold">
-        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: $localeStore })}</div>
-        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_html({}, { locale: $localeStore })}</div>
-        <div class="p-3">{m.syntax_renderedOutput({}, { locale: $localeStore })}</div>
+        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: locale })}</div>
+        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_html({}, { locale: locale })}</div>
+        <div class="p-3">{m.syntax_renderedOutput({}, { locale: locale })}</div>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 border-t border-gray-300">
         <div class="p-3 font-mono text-sm bg-gray-50 whitespace-pre-wrap break-all border-b md:border-b-0 md:border-r border-gray-300">My favorite search engine is [Duck Duck Go](https://duckduckgo.com).</div>
@@ -384,14 +384,14 @@
       </div>
     </div>
 
-    <h3 class="text-xl font-bold mt-6 mb-3">{m.syntax_addingTitlesTitle({}, { locale: $localeStore })}</h3>
-    <p class="mb-4">{m.syntax_addingTitlesIntro({}, { locale: $localeStore })}</p>
+    <h3 class="text-xl font-bold mt-6 mb-3">{m.syntax_addingTitlesTitle({}, { locale: locale })}</h3>
+    <p class="mb-4">{m.syntax_addingTitlesIntro({}, { locale: locale })}</p>
 
     <div class="border border-gray-300 rounded-md overflow-hidden mb-6">
       <div class="grid grid-cols-1 md:grid-cols-3 bg-gray-100 font-bold">
-        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: $localeStore })}</div>
-        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_html({}, { locale: $localeStore })}</div>
-        <div class="p-3">{m.syntax_renderedOutput({}, { locale: $localeStore })}</div>
+        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: locale })}</div>
+        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_html({}, { locale: locale })}</div>
+        <div class="p-3">{m.syntax_renderedOutput({}, { locale: locale })}</div>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 border-t border-gray-300">
         <div class="p-3 font-mono text-sm bg-gray-50 whitespace-pre-wrap break-all border-b md:border-b-0 md:border-r border-gray-300">My favorite search engine is [Duck Duck Go](https://duckduckgo.com "The best search engine for privacy").</div>
@@ -402,14 +402,14 @@
   </section>
 
   <section id="images" class="mb-8">
-    <h2 class="text-2xl font-bold mt-8 mb-4 pb-2 border-b border-gray-200">{m.syntax_imagesTitle({}, { locale: $localeStore })}</h2>
-    <p class="mb-4">{m.syntax_imagesIntro({}, { locale: $localeStore })}</p>
+    <h2 class="text-2xl font-bold mt-8 mb-4 pb-2 border-b border-gray-200">{m.syntax_imagesTitle({}, { locale: locale })}</h2>
+    <p class="mb-4">{m.syntax_imagesIntro({}, { locale: locale })}</p>
 
     <div class="border border-gray-300 rounded-md overflow-hidden mb-6">
       <div class="grid grid-cols-1 md:grid-cols-3 bg-gray-100 font-bold">
-        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: $localeStore })}</div>
+        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: locale })}</div>
         <div class="p-3">HTML</div>
-        <div class="p-3">{m.syntax_renderedOutput({}, { locale: $localeStore })}</div>
+        <div class="p-3">{m.syntax_renderedOutput({}, { locale: locale })}</div>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 border-t border-gray-300">
         <div class="p-3 font-mono text-sm bg-gray-50 whitespace-pre-wrap break-all border-b md:border-b-0 md:border-r border-gray-300">![The San Juan Mountains](https://mdg.imgix.net/assets/images/san-juan-mountains.jpg "San Juan Mountains")</div>
@@ -420,13 +420,13 @@
   </section>
 
   <section id="escaping-characters" class="mb-8">
-    <h2 class="text-2xl font-bold mt-8 mb-4 pb-2 border-b border-gray-200">{m.syntax_escapingTitle({}, { locale: $localeStore })}</h2>
-    <p class="mb-4">{m.syntax_escapingIntro({}, { locale: $localeStore })}</p>
+    <h2 class="text-2xl font-bold mt-8 mb-4 pb-2 border-b border-gray-200">{m.syntax_escapingTitle({}, { locale: locale })}</h2>
+    <p class="mb-4">{m.syntax_escapingIntro({}, { locale: locale })}</p>
 
     <div class="border border-gray-300 rounded-md overflow-hidden mb-6">
       <div class="grid grid-cols-1 md:grid-cols-2 bg-gray-100 font-bold">
-        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: $localeStore })}</div>
-        <div class="p-3">{m.syntax_renderedOutput({}, { locale: $localeStore })}</div>
+        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: locale })}</div>
+        <div class="p-3">{m.syntax_renderedOutput({}, { locale: locale })}</div>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 border-t border-gray-300">
         <div class="p-3 font-mono text-sm bg-gray-50 whitespace-pre-wrap break-all border-b md:border-b-0 md:border-r border-gray-300">\* Without the backslash, this would be a bullet in an unordered list.</div>
@@ -434,8 +434,8 @@
       </div>
     </div>
 
-    <h3 class="text-xl font-bold mt-6 mb-3">{m.syntax_escapingCharsTitle({}, { locale: $localeStore })}</h3>
-    <p class="mb-4">{m.syntax_escapingCharsIntro({}, { locale: $localeStore })}</p>
+    <h3 class="text-xl font-bold mt-6 mb-3">{m.syntax_escapingCharsTitle({}, { locale: locale })}</h3>
+    <p class="mb-4">{m.syntax_escapingCharsIntro({}, { locale: locale })}</p>
 
     <table class="w-full border-collapse mb-6">
       <tbody>
@@ -496,13 +496,13 @@
   </section>
 
   <section id="tables" class="mb-8">
-    <h2 class="text-2xl font-bold mt-8 mb-4 pb-2 border-b border-gray-200">{m.syntax_tablesTitle({}, { locale: $localeStore })}</h2>
-    <p class="mb-4">{m.syntax_tablesIntro({}, { locale: $localeStore })}</p>
+    <h2 class="text-2xl font-bold mt-8 mb-4 pb-2 border-b border-gray-200">{m.syntax_tablesTitle({}, { locale: locale })}</h2>
+    <p class="mb-4">{m.syntax_tablesIntro({}, { locale: locale })}</p>
 
     <div class="border border-gray-300 rounded-md overflow-hidden mb-6">
       <div class="grid grid-cols-1 md:grid-cols-2 bg-gray-100 font-bold">
-        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: $localeStore })}</div>
-        <div class="p-3">{m.syntax_renderedOutput({}, { locale: $localeStore })}</div>
+        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: locale })}</div>
+        <div class="p-3">{m.syntax_renderedOutput({}, { locale: locale })}</div>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 border-t border-gray-300">
         <div class="p-3 font-mono text-sm bg-gray-50 whitespace-pre-wrap break-all border-b md:border-b-0 md:border-r border-gray-300">
@@ -531,13 +531,13 @@
       </div>
     </div>
 
-    <h3 class="text-xl font-bold mt-6 mb-3">{m.syntax_alignmentTitle({}, { locale: $localeStore })}</h3>
-    <p class="mb-4">{m.syntax_alignmentIntro({}, { locale: $localeStore })}</p>
+    <h3 class="text-xl font-bold mt-6 mb-3">{m.syntax_alignmentTitle({}, { locale: locale })}</h3>
+    <p class="mb-4">{m.syntax_alignmentIntro({}, { locale: locale })}</p>
 
     <div class="border border-gray-300 rounded-md overflow-hidden mb-6">
       <div class="grid grid-cols-1 md:grid-cols-2 bg-gray-100 font-bold">
-        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: $localeStore })}</div>
-        <div class="p-3">{m.syntax_renderedOutput({}, { locale: $localeStore })}</div>
+        <div class="p-3 border-b md:border-b-0 md:border-r border-gray-300">{m.syntax_markdown({}, { locale: locale })}</div>
+        <div class="p-3">{m.syntax_renderedOutput({}, { locale: locale })}</div>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 border-t border-gray-300">
         <div class="p-3 font-mono text-sm bg-gray-50 whitespace-pre-wrap break-all border-b md:border-b-0 md:border-r border-gray-300">
@@ -547,9 +547,9 @@
           <table class="min-w-full border border-gray-300">
             <thead>
               <tr class="bg-gray-100">
-                <th class="p-2 border border-gray-300 text-left">{m.syntax_alignLeft({}, { locale: $localeStore })}</th>
-                <th class="p-2 border border-gray-300 text-center">{m.syntax_alignCenter({}, { locale: $localeStore })}</th>
-                <th class="p-2 border border-gray-300 text-right">{m.syntax_alignRight({}, { locale: $localeStore })}</th>
+                <th class="p-2 border border-gray-300 text-left">{m.syntax_alignLeft({}, { locale: locale })}</th>
+                <th class="p-2 border border-gray-300 text-center">{m.syntax_alignCenter({}, { locale: locale })}</th>
+                <th class="p-2 border border-gray-300 text-right">{m.syntax_alignRight({}, { locale: locale })}</th>
               </tr>
             </thead>
             <tbody>

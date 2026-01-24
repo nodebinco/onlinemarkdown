@@ -1,13 +1,13 @@
 <script lang="ts">
+  import { page } from '$app/stores';
   import { onMount } from 'svelte';
   import * as m from '$lib/paraglide/messages';
-  import { getLocaleStore } from '$lib/i18n';
   import MarkdownPreview from './MarkdownPreview.svelte';
   import MarkdownToolbar from './MarkdownToolbar.svelte';
   import FileSidebar from './FileSidebar.svelte';
   import { genFileId } from '$lib/utils';
 
-  const localeStore = getLocaleStore();
+  const locale = $derived($page.data?.locale ?? 'en');
 
   interface File {
     id: string;
@@ -346,18 +346,18 @@ Start writing Markdown at [Online Markdown Editor](https://onlinemarkdown.com) a
 
   <div class="flex justify-between border-t border-gray-300 bg-gray-100 p-1 text-xs text-gray-500">
     <div class="flex items-center">
-<span class="mr-1 font-medium">{m.editor_file({}, { locale: $localeStore })}:</span>
+<span class="mr-1 font-medium">{m.editor_file({}, { locale: locale })}:</span>
         <span class="mr-4 text-gray-700"
-          >{currentFile.name === UNTITLED ? m.editor_untitled({}, { locale: $localeStore }) : currentFile.name}</span
+          >{currentFile.name === UNTITLED ? m.editor_untitled({}, { locale: locale }) : currentFile.name}</span
         >
     </div>
     <div class="flex space-x-4">
-      <span>{currentFile.content.length.toLocaleString()} {m.editor_characters({}, { locale: $localeStore })}</span>
+      <span>{currentFile.content.length.toLocaleString()} {m.editor_characters({}, { locale: locale })}</span>
       <span
-        >{currentFile.content.split(/\s+/).filter(Boolean).length.toLocaleString()} {m.editor_words({}, { locale: $localeStore })}</span
+        >{currentFile.content.split(/\s+/).filter(Boolean).length.toLocaleString()} {m.editor_words({}, { locale: locale })}</span
       >
       <span
-        >{currentFile.content.split(/\n\n+/).filter(Boolean).length.toLocaleString()} {m.editor_paragraphs({}, { locale: $localeStore })}</span
+        >{currentFile.content.split(/\n\n+/).filter(Boolean).length.toLocaleString()} {m.editor_paragraphs({}, { locale: locale })}</span
       >
     </div>
   </div>

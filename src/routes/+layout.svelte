@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { setContext } from 'svelte';
-  import { writable } from 'svelte/store';
   import { page } from '$app/stores';
   import { locales, localizeHref } from '$lib/paraglide/runtime';
   import * as m from '$lib/paraglide/messages';
@@ -13,12 +11,6 @@
   let localeDropdownEl: HTMLDivElement | null = $state(null);
 
   const locale = $derived($page.data?.locale ?? 'en');
-  const localeStore = writable('en');
-  setContext('locale', localeStore);
-
-  $effect(() => {
-    localeStore.set(locale);
-  });
 
   const localeNames: Record<string, string> = {
     en: 'English',

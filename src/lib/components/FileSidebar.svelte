@@ -1,9 +1,9 @@
 <script lang="ts">
+  import { page } from '$app/stores';
   import * as m from '$lib/paraglide/messages';
-  import { getLocaleStore } from '$lib/i18n';
   import { FileText, Plus, Check, X, Pencil, Trash2 } from 'lucide-svelte';
 
-  const localeStore = getLocaleStore();
+  const locale = $derived($page.data?.locale ?? 'en');
 
   let { currentFile, files, onNewFile, onDeleteFile, onFileSelect, onFileRename } = $props();
 
@@ -43,11 +43,11 @@
   class="flex h-full w-64 flex-shrink-0 flex-col border-r border-gray-300 bg-gray-100 transition-all duration-300 ease-in-out"
 >
   <div class="flex items-center justify-between border-b border-gray-300 bg-gray-200 p-4">
-    <h2 class="text-lg font-semibold">{m.sidebar_files({}, { locale: $localeStore })}</h2>
+    <h2 class="text-lg font-semibold">{m.sidebar_files({}, { locale: locale })}</h2>
     <button
       onclick={() => onNewFile()}
       class="cursor-pointer rounded p-1 hover:bg-gray-300"
-      title={m.sidebar_newFile({}, { locale: $localeStore })}
+      title={m.sidebar_newFile({}, { locale: locale })}
     >
       <Plus size={20} />
     </button>
@@ -56,7 +56,7 @@
   <div class="flex-1 overflow-auto">
     {#if sortedFiles.length === 0}
       <div class="p-4 text-center text-gray-500">
-        {m.sidebar_noFiles({}, { locale: $localeStore })}
+        {m.sidebar_noFiles({}, { locale: locale })}
       </div>
     {:else}
       <ul class="divide-y">
