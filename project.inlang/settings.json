@@ -8,5 +8,5 @@
     "pathPattern": "./messages/{locale}.json"
   },
   "baseLocale": "en",
-  "locales": ["en", "es", "fr", "de", "ja", "zh-cn", "pt", "it", "ru", "ko", "nl", "tr", "th"]
+  "locales": ["en", "es", "fr", "de", "ja", "zh-cn", "pt", "it", "ru", "ko", "nl", "tr", "th", "zh-tw", "ar", "hi", "vi", "id", "ms", "pl", "uk", "ro", "hu", "cs", "el", "sv", "da", "no", "fi", "he", "fa", "bn", "fil", "bg", "hr", "sk", "sr", "ca", "af", "sw", "ta", "te", "mr", "gu", "ur", "pa", "kn", "ml", "am", "ha"]
 }

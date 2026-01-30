@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
- * Translate remaining English keys in messages/{locale}.json.
+ * Apply translations to messages/{locale}.json.
  * Run: node scripts/translate-messages.mjs
+ * Builds extra locales (es, th from files; zh-tw, ar, hi, vi, ...) and merges with hardcoded translations, then writes. locale_* use same values from en.
  */
 import fs from 'fs';
 import path from 'path';
@@ -9,6 +10,145 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const messagesDir = path.join(__dirname, '..', 'messages');
+
+const enJson = JSON.parse(fs.readFileSync(path.join(messagesDir, 'en.json'), 'utf8'));
+const allKeys = Object.keys(enJson).filter((k) => !k.startsWith('$'));
+const fromFileLocales = ['es', 'th', 'pl', 'uk', 'ro', 'hu', 'cs', 'el', 'sv', 'da', 'no', 'fi', 'he', 'fa', 'ar', 'hi', 'id', 'zh-tw'];
+const extraLocales = ['vi', 'ms', 'bn', 'fil', 'bg', 'hr', 'sk', 'sr', 'ca', 'af', 'sw', 'ta', 'te', 'mr', 'gu', 'ur', 'pa', 'kn', 'ml', 'am', 'ha'];
+
+const TRANSLATIONS = {};
+function set(locale, key, value) {
+  if (!TRANSLATIONS[key]) TRANSLATIONS[key] = {};
+  TRANSLATIONS[key][locale] = value;
+}
+function batch(locale, pairs) {
+  for (const [k, v] of Object.entries(pairs)) set(locale, k, v);
+}
+function getValue(locale, key) {
+  const v = TRANSLATIONS[key]?.[locale];
+  if (v !== undefined) return v;
+  return enJson[key];
+}
+
+// vi: partial Vietnamese (nav, footer, home, editor, toolbar, about, contact, gettingStarted, tools)
+const vi = { nav_ariaEditor: 'Trình soạn thảo Markdown', nav_brand: 'Online Markdown', nav_gettingStarted: 'Bắt đầu', nav_syntax: 'Cú pháp', nav_cheatSheet: 'Cheat Sheet', nav_tools: 'Công cụ', nav_openEditor: 'Mở trình soạn thảo', nav_toggleMenu: 'Chuyển menu', footer_tools: 'Công cụ', footer_about: 'Về chúng tôi', footer_contact: 'Liên hệ', footer_privacy: 'Chính sách bảo mật', footer_terms: 'Điều khoản & Điều kiện', footer_rights: 'Đã bảo lưu mọi quyền', home_title: 'Trình soạn thảo Markdown trực tuyến – Đơn giản, Nhanh & Xem trước trực tiếp | OnlineMarkdown.com', home_description: 'Viết và xem trước Markdown ngay với Trình soạn thảo Markdown trực tuyến. Hỗ trợ GitHub Flavored Markdown (GFM), bảng, khối mã và sơ đồ Mermaid. Không cần cài đặt—chỉ cần gõ!', home_keywords: 'trình soạn thảo markdown, markdown trực tuyến, xem trước markdown, GitHub Flavored Markdown, Markdown sang HTML, trình soạn thảo markdown trực tiếp, khối mã, bảng, sơ đồ mermaid, trình soạn thảo markdown svelte, công cụ markdown miễn phí', home_ogTitle: 'Trình soạn thảo Markdown trực tuyến – Đơn giản, Nhanh & Xem trước trực tiếp', home_ogDescription: 'Viết và xem trước Markdown ngay. Hỗ trợ GFM, bảng, khối mã và Mermaid.', home_twitterTitle: 'Trình soạn thảo Markdown trực tuyến', home_twitterDescription: 'Chỉnh sửa Markdown nhanh, đơn giản và trực tiếp với hỗ trợ GitHub Flavored Markdown.', editor_file: 'Tệp', editor_characters: 'ký tự', editor_words: 'từ', editor_paragraphs: 'đoạn', editor_untitled: 'Chưa đặt tên', toolbar_newFile: 'Tệp mới', toolbar_hideSidebar: 'Ẩn thanh bên', toolbar_showSidebar: 'Hiện thanh bên', toolbar_hidePreview: 'Ẩn xem trước', toolbar_showPreview: 'Hiện xem trước', toolbar_undo: 'Hoàn tác', toolbar_redo: 'Làm lại', toolbar_headings: 'Đầu đề', toolbar_heading1: 'Đầu đề 1', toolbar_heading2: 'Đầu đề 2', toolbar_heading3: 'Đầu đề 3', toolbar_heading4: 'Đầu đề 4', toolbar_heading5: 'Đầu đề 5', toolbar_heading6: 'Đầu đề 6', toolbar_bold: 'Đậm', toolbar_italic: 'Nghiêng', toolbar_strikethrough: 'Gạch ngang', toolbar_superscript: 'Chỉ số trên', toolbar_subscript: 'Chỉ số dưới', toolbar_bulletList: 'Danh sách dấu đầu dòng', toolbar_numberedList: 'Danh sách đánh số', toolbar_quote: 'Trích dẫn', toolbar_code: 'Mã', toolbar_table: 'Bảng', toolbar_link: 'Liên kết', toolbar_image: 'Hình ảnh', toolbar_print: 'In', toolbar_fullScreen: 'Toàn màn hình', toolbar_exitFullScreen: 'Thoát toàn màn hình', toolbar_saveToDisk: 'Lưu vào đĩa', sidebar_files: 'Tệp', sidebar_newFile: 'Tệp mới', sidebar_noFiles: 'Chưa có tệp. Tạo tệp mới để bắt đầu.', imageDialog_title: 'Chèn hình ảnh', imageDialog_url: 'URL', imageDialog_altText: 'Văn bản thay thế', imageDialog_urlPlaceholder: 'https://example.com/image.jpg', imageDialog_altPlaceholder: 'Mô tả hình ảnh', imageDialog_cancel: 'Hủy', imageDialog_insert: 'Chèn', linkDialog_title: 'Chèn liên kết', linkDialog_text: 'Văn bản', linkDialog_url: 'URL', linkDialog_textPlaceholder: 'Văn bản liên kết', linkDialog_urlPlaceholder: 'https://example.com', linkDialog_cancel: 'Hủy', linkDialog_insert: 'Chèn', about_title: 'Về chúng tôi | OnlineMarkdown.com', about_description: 'Tìm hiểu thêm về OnlineMarkdown.com, công cụ miễn phí mã nguồn mở giúp bạn viết với cú pháp Markdown. Tham gia cộng đồng của chúng tôi ngay hôm nay.', about_h1: 'Về chúng tôi', about_intro1: 'Online Markdown Editor (OnlineMarkdown.com) là công cụ miễn phí mã nguồn mở giúp bạn viết và xem trước nội dung Markdown theo thời gian thực. Sứ mệnh của chúng tôi là cung cấp giao diện đơn giản, trực quan để tạo tài liệu định dạng đẹp bằng cú pháp Markdown.', about_intro2: 'Dù bạn đang viết tài liệu, tạo nội dung cho blog hay ghi chú, trình soạn thảo của chúng tôi giúp bạn tập trung vào nội dung trong khi vẫn đảm bảo định dạng đúng.', about_intro3: 'Chúng tôi tin vào sức mạnh của Markdown như định dạng viết phổ quát kết hợp sự đơn giản với khả năng định dạng mạnh mẽ. Công cụ của chúng tôi được thiết kế để mọi người đều có thể dùng định dạng này.', about_storyTitle: 'Câu chuyện của chúng tôi', about_story: 'Được thành lập với đam mê viết sạch và hiệu quả, Online Markdown Editor ra đời từ mong muốn đơn giản hóa cách mọi người tạo và chia sẻ ý tưởng. Theo thời gian, chúng tôi đã phát triển thành cộng đồng sôi động gồm nhà văn, lập trình viên và người sáng tạo dựa vào Markdown vì tính linh hoạt và dễ dùng.', about_missionTitle: 'Sứ mệnh của chúng tôi', about_mission1: 'Sứ mệnh của chúng tôi là trao quyền cho người dùng bằng công cụ giúp viết và định dạng nội dung dễ dàng nhất có thể. Chúng tôi cam kết cải tiến liên tục, dựa trên phản hồi từ cộng đồng và bối cảnh viết kỹ thuật số luôn thay đổi.', about_mission2: 'Tại OnlineMarkdown.com, chúng tôi tin vào cộng tác mã nguồn mở, đổi mới và dân chủ hóa công cụ viết kỹ thuật số chất lượng cao.', about_communityTitle: 'Cộng đồng & Cộng tác', about_community1: 'Chúng tôi không chỉ là trình soạn thảo—chúng tôi là một cộng đồng. Nền tảng của chúng tôi khuyến khích đóng góp từ người dùng khắp thế giới và chúng tôi trân trọng mọi phản hồi và gợi ý. Cùng nhau, chúng tôi đang xây dựng công cụ có ích cho mọi người.', about_community2: 'Dù bạn là lập trình viên kỳ cựu hay người mới viết, tiếng nói của bạn quan trọng với chúng tôi. Hãy tham gia cộng đồng, chia sẻ ý tưởng và giúp chúng tôi định hình tương lai của viết kỹ thuật số.', about_whyTitle: 'Tại sao chọn Online Markdown Editor?', about_why1: 'Xem trước Markdown theo thời gian thực để xem nội dung ngay', about_why2: 'Giao diện sạch, không phân tâm để tập trung viết', about_why3: 'Dự án mã nguồn mở với cộng đồng đóng góp sôi động', about_why4: 'Trình soạn thảo dễ dùng, đa năng cho mọi nhu cầu viết', about_contactTitle: 'Liên hệ', about_contactPrefix: 'Có câu hỏi hoặc gợi ý? Hãy liên hệ với chúng tôi qua trang ', about_contactLink: 'Liên hệ', about_contactSuffix: ' của chúng tôi.', contact_title: 'Liên hệ chúng tôi | OnlineMarkdown.com', contact_description: 'Liên hệ với đội ngũ đứng sau OnlineMarkdown.com. Chúng tôi sẵn sàng trả lời câu hỏi hoặc lắng nghe gợi ý của bạn.', contact_h1: 'Liên hệ chúng tôi', contact_intro: 'Có câu hỏi hoặc gợi ý? Chúng tôi rất muốn nghe từ bạn! Bạn có thể liên hệ qua các kênh sau:', contact_github: 'GitHub', contact_githubPrefix: 'Truy cập ', contact_githubLink: 'kho lưu trữ GitHub', contact_githubSuffix: ' của chúng tôi để báo lỗi hoặc đóng góp cho dự án.', contact_email: 'Email', contact_emailPrefix: 'Gửi email cho chúng tôi tại ', contact_closing: 'Chúng tôi phấn đấu trả lời mọi thắc mắc trong vòng 24–48 giờ. Cảm ơn bạn đã quan tâm đến Online Markdown Editor!', gettingStarted_title: 'Bắt đầu với Markdown | OnlineMarkdown.com', gettingStarted_description: 'Học cơ bản về cú pháp Markdown, định dạng và cách dùng trình soạn thảo trực tuyến của chúng tôi. Phù hợp cho người mới muốn làm chủ ngôn ngữ đánh dấu nhẹ này.', gettingStarted_keywords: 'hướng dẫn markdown, cơ bản markdown, cú pháp markdown, trình soạn thảo markdown, học markdown, markdown cho người mới', gettingStarted_h1: 'Bắt đầu với Markdown', gettingStarted_whatTitle: 'Markdown là gì?', gettingStarted_what1: 'Markdown là ngôn ngữ đánh dấu nhẹ cho phép bạn viết văn bản có định dạng bằng cú pháp văn bản thuần. Nó được thiết kế để dễ đọc và dễ viết, hoàn hảo cho tài liệu, ghi chú và tạo nội dung.', gettingStarted_what2: 'Được John Gruber tạo ra năm 2004, Markdown đã trở thành một trong những ngôn ngữ đánh dấu phổ biến nhất thế giới. Nó được dùng rộng rãi trên GitHub, Reddit, Stack Overflow và nhiều hệ thống quản lý nội dung.', gettingStarted_whyTitle: 'Tại sao dùng Markdown?', gettingStarted_why1: 'Đơn giản', gettingStarted_why1Text: 'Viết nội dung mà không lo định dạng phức tạp', gettingStarted_why2: 'Di động', gettingStarted_why2Text: 'Chuyển sang HTML, PDF hoặc định dạng khác dễ dàng', gettingStarted_why3: 'Dễ đọc', gettingStarted_why3Text: 'Nội dung vẫn đọc được ngay cả ở dạng thô', gettingStarted_why4: 'Độc lập nền tảng', gettingStarted_why4Text: 'Dùng được trên mọi trình soạn thảo và nền tảng', gettingStarted_why5: 'Tập trung nội dung', gettingStarted_why5Text: 'Tập trung vào viết hơn là định dạng', gettingStarted_why6: 'Hỗ trợ rộng', gettingStarted_why6Text: 'Dùng trên vô số nền tảng và ứng dụng', gettingStarted_why7: 'Bền vững', gettingStarted_why7Text: 'Định dạng văn bản thuần đảm bảo truy cập lâu dài', gettingStarted_editorTitle: 'Bắt đầu với trình soạn thảo của chúng tôi', gettingStarted_editorIntro: 'Trình soạn thảo Markdown của chúng tôi được thiết kế để viết và xem trước Markdown đơn giản nhất có thể:', gettingStarted_step1: 'Mở trình soạn thảo', gettingStarted_step1Text: 'ở trang chủ', gettingStarted_step2: 'Bắt đầu gõ', gettingStarted_step2Text: 'nội dung của bạn vào khung bên trái', gettingStarted_step3: 'Xem xem trước trực tiếp', gettingStarted_step3Text: 'ở khung bên phải', gettingStarted_step4: 'Dùng thanh công cụ', gettingStarted_step4Text: 'để định dạng nhanh mà không cần nhớ cú pháp', gettingStarted_step5: 'Lưu công việc', gettingStarted_step5Text: 'tự động vào bộ nhớ cục bộ', gettingStarted_step6: 'Xuất nội dung', gettingStarted_step6Text: 'dưới dạng tệp Markdown', gettingStarted_featuresTitle: 'Tính năng trình soạn thảo', gettingStarted_feature1: 'Chế độ chia đôi', gettingStarted_feature1Text: 'Chỉnh sửa và xem trước nội dung cùng lúc', gettingStarted_feature2: 'Tô sáng cú pháp', gettingStarted_feature2Text: 'Giúp mã Markdown dễ đọc hơn', gettingStarted_feature3: 'Quản lý tệp', gettingStarted_feature3Text: 'Tạo, chỉnh sửa và sắp xếp nhiều tài liệu', gettingStarted_feature4: 'Tự lưu', gettingStarted_feature4Text: 'Không mất công việc nhờ tự động lưu', gettingStarted_feature5: 'Phím tắt', gettingStarted_feature5Text: 'Tăng tốc quy trình với phím tắt', gettingStarted_feature6: 'Thiết kế đáp ứng', gettingStarted_feature6Text: 'Dùng được trên máy tính, máy tính bảng và điện thoại', gettingStarted_feature7: 'Chế độ tối', gettingStarted_feature7Text: 'Giảm mỏi mắt khi làm việc ban đêm', gettingStarted_shortcutsTitle: 'Phím tắt', gettingStarted_action: 'Thao tác', gettingStarted_winLinux: 'Windows/Linux', gettingStarted_macos: 'macOS', gettingStarted_togglePreview: 'Bật/tắt xem trước', gettingStarted_save: 'Lưu', gettingStarted_bestPracticesTitle: 'Thực hành tốt', gettingStarted_bp1: 'Giữ đơn giản', gettingStarted_bp1Text: 'Dùng cú pháp đơn giản nhất đạt mục tiêu định dạng', gettingStarted_bp2: 'Nhất quán', gettingStarted_bp2Text: 'Dùng cùng một phong cách trong toàn bộ tài liệu', gettingStarted_bp3: 'Dùng tiêu đề hợp lý', gettingStarted_bp3Text: 'Tạo cấu trúc rõ ràng với các đầu đề', gettingStarted_bp4: 'Xem trước thường xuyên', gettingStarted_bp4Text: 'Kiểm tra tài liệu trông thế nào khi bạn viết', gettingStarted_bp5: 'Học phím tắt', gettingStarted_bp5Text: 'Tăng tốc quy trình', gettingStarted_bp6: 'Dùng liên kết tham chiếu', gettingStarted_bp6Text: 'Với tài liệu nhiều liên kết, dùng liên kết kiểu tham chiếu', gettingStarted_bp7: 'Thêm ngắt dòng', gettingStarted_bp7Text: 'Dùng dòng trống giữa đoạn và mục để dễ đọc', gettingStarted_useCasesTitle: 'Trường hợp dùng phổ biến', gettingStarted_docTitle: 'Tài liệu', gettingStarted_docText: 'Tạo tài liệu rõ ràng, có cấu trúc cho phần mềm, sản phẩm hoặc quy trình.', gettingStarted_doc1: 'Tệp README', gettingStarted_doc2: 'Tài liệu API', gettingStarted_doc3: 'Hướng dẫn người dùng', gettingStarted_doc4: 'Đặc tả kỹ thuật', gettingStarted_notesTitle: 'Ghi chú', gettingStarted_notesText: 'Ghi chú có định dạng, dễ xem lại và chia sẻ.', gettingStarted_notes1: 'Ghi chú cuộc họp', gettingStarted_notes2: 'Ghi chú học', gettingStarted_notes3: 'Ghi chú nghiên cứu', gettingStarted_notes4: 'Lên kế hoạch dự án', gettingStarted_contentTitle: 'Tạo nội dung', gettingStarted_contentText: 'Viết bài blog, bài viết và nội dung khác với định dạng gọn gàng.', gettingStarted_content1: 'Bài blog', gettingStarted_content2: 'Bài viết', gettingStarted_content3: 'Bản tin', gettingStarted_content4: 'Hướng dẫn', gettingStarted_nextStepsTitle: 'Bước tiếp theo', gettingStarted_nextStepsIntro: 'Sẵn sàng học thêm? Xem các hướng dẫn khác của chúng tôi:', gettingStarted_next0: 'Markdown sang PDF', gettingStarted_next0Text: 'Chuyển Markdown sang PDF trực tuyến miễn phí', gettingStarted_next1: 'Hướng dẫn cú pháp cơ bản', gettingStarted_next1Text: 'Học chi tiết các phần tử Markdown cơ bản', gettingStarted_next2: 'Cheat Sheet', gettingStarted_next2Text: 'Tham chiếu nhanh mọi cú pháp Markdown', gettingStarted_next3: 'Công cụ đề xuất', gettingStarted_next3Text: 'Đồng hồ UTC, bộ chuyển múi giờ và hơn thế', gettingStarted_ctaTitle: 'Bắt đầu tạo ngay', gettingStarted_ctaText: 'Sẵn sàng dùng kiến thức Markdown mới? Mở trình soạn thảo của chúng tôi và tạo tài liệu định dạng đẹp trong vài giây.', gettingStarted_ctaButton: 'Mở trình soạn thảo' };
+batch('vi', vi);
+const vi2 = { tools_title: 'Công cụ đề xuất | OnlineMarkdown.com', tools_description: 'Công cụ chúng tôi dùng và đề xuất cho quy trình Markdown—đồng hồ UTC, bộ chuyển múi giờ và hơn thế.', tools_keywords: 'công cụ đề xuất, đồng hồ UTC, bộ chuyển múi giờ, công cụ markdown, công cụ lập trình, công cụ viết', tools_h1: 'Công cụ đề xuất', tools_intro: 'Công cụ chúng tôi dùng và đề xuất cho quy trình Markdown—đồng hồ UTC, bộ chuyển múi giờ và hơn thế.', tools_timeutcnowTitle: 'TimeUTCNow', tools_timeutcnowDesc: 'Đồng hồ UTC trực tiếp và bộ chuyển múi giờ. Xem giờ UTC hiện tại, chuyển giữa các múi giờ và thêm thành phố trên toàn cầu. Cần thiết cho lập trình viên, phi công và bất kỳ ai làm việc xuyên múi giờ.', tools_visitTimeutcnow: 'Truy cập TimeUTCNow.com', tools_suggestTitle: 'Đề xuất công cụ', tools_suggestPrefix: 'Có công cụ nào phù hợp với Markdown hoặc quy trình tài liệu? Cho chúng tôi biết qua trang ', tools_suggestLink: 'Liên hệ', tools_suggestSuffix: ' của chúng tôi.', tools_backGettingStarted: '← Bắt đầu', tools_cheatSheet: 'Cheat Sheet →', tools_md2pdfTitle: 'Markdown sang PDF', tools_md2pdfDesc: 'Chuyển markdown sang PDF trực tuyến miễn phí. Viết hoặc dán Markdown, dùng In → Lưu dưới dạng PDF để xuất. Không cần đăng ký, không cài đặt.', tools_md2pdfCta: 'Chuyển Markdown sang PDF', tools_introPrefix: 'Công cụ chúng tôi dùng và đề xuất—đồng hồ UTC, bộ chuyển múi giờ, ', tools_introLink: 'markdown sang PDF', tools_introSuffix: ', và hơn thế.' };
+batch('vi', vi2);
+
+// ms: Malay (Bahasa Melayu) – nav, footer, syntax page and common keys
+const ms = {
+  nav_ariaEditor: 'Editor Markdown',
+  nav_brand: 'Online Markdown',
+  nav_gettingStarted: 'Mulakan',
+  nav_syntax: 'Sintaks',
+  nav_cheatSheet: 'Cheat Sheet',
+  nav_tools: 'Alat',
+  nav_openEditor: 'Buka Editor',
+  nav_toggleMenu: 'Togol menu',
+  footer_tools: 'Alat',
+  footer_about: 'Tentang Kami',
+  footer_contact: 'Hubungi',
+  footer_privacy: 'Dasar Privasi',
+  footer_terms: 'Terma & Syarat',
+  footer_rights: 'Hak cipta terpelihara',
+  syntax_title: 'Panduan Sintaks Markdown | OnlineMarkdown.com',
+  syntax_description: 'Panduan lengkap sintaks Markdown, termasuk tajuk, perenggan, pemformatan, senarai, blok kod dan lain-lain. Belajar memformat dokumen dengan Markdown.',
+  syntax_keywords: 'markdown, sintaks, panduan, pemformatan, dokumentasi, editor teks, editor markdown, tajuk, senarai, blok kod, pautan, imej, jadual',
+  syntax_h1: 'Panduan Sintaks Markdown',
+  syntax_subtitle: 'Sintaks penting untuk memformat dokumen anda',
+  syntax_overviewTitle: 'Gambaran',
+  syntax_overview1: 'Markdown ialah bahasa penanda ringan yang boleh anda gunakan untuk menambah elemen pemformatan pada dokumen teks biasa. Dicipta oleh John Gruber pada 2004, Markdown kini salah satu bahasa penanda paling popular di dunia.',
+  syntax_overview2: 'Menggunakan Markdown berbeza daripada editor WYSIWYG. Dalam aplikasi seperti Microsoft Word, anda klik butang untuk memformat perkataan dan frasa, dan perubahan kelihatan serta-merta. Markdown tidak begitu. Apabila anda mencipta fail berformat Markdown, anda menambah sintaks Markdown pada teks untuk menunjukkan perkataan dan frasa mana yang patut kelihatan berbeza.',
+  syntax_headingsTitle: 'Tajuk',
+  syntax_headingsIntro: 'Untuk mencipta tajuk, tambah tanda nombor (#) di hadapan perkataan atau frasa. Bilangan tanda nombor sepadan dengan peringkat tajuk. Contohnya, untuk tajuk peringkat tiga, guna tiga tanda nombor (e.g. ### Tajuk Saya).',
+  syntax_markdown: 'Markdown',
+  syntax_html: 'HTML',
+  syntax_renderedOutput: 'Output Diterjemah',
+  syntax_paragraphsTitle: 'Perenggan',
+  syntax_paragraphsIntro: 'Untuk mencipta perenggan, gunakan baris kosong untuk memisahkan satu atau lebih baris teks.',
+  syntax_lineBreaksTitle: 'Putus Baris',
+  syntax_lineBreaksIntro: 'Untuk mencipta putus baris atau baris baru, akhiri baris dengan dua atau lebih ruang, kemudian tekan return.',
+  syntax_emphasisTitle: 'Penekanan',
+  syntax_emphasisIntro: 'Anda boleh menambah penekanan dengan menjadikan teks tebal atau condong.',
+  syntax_boldTitle: 'Tebal',
+  syntax_boldIntro: 'Untuk teks tebal, tambah dua asterisk (**) atau garis bawah (__) sebelum dan selepas perkataan atau frasa.',
+  syntax_italicTitle: 'Condong',
+  syntax_italicIntro: 'Untuk teks condong, tambah satu asterisk (*) atau garis bawah (_) sebelum dan selepas perkataan atau frasa.',
+  syntax_boldItalicTitle: 'Tebal dan Condong',
+  syntax_boldItalicIntro: 'Untuk menekankan teks dengan tebal dan condong serentak, tambah tiga asterisk (***) atau garis bawah (___) sebelum dan selepas perkataan atau frasa.',
+  syntax_blockquotesTitle: 'Blockquote',
+  syntax_blockquotesIntro: 'Untuk mencipta blockquote, tambah > di hadapan perenggan.',
+  syntax_nestedBlockquotesTitle: 'Blockquote Bersarang',
+  syntax_nestedBlockquotesIntro: 'Blockquote boleh disarangkan. Tambah >> di hadapan perenggan yang ingin disarangkan.',
+  syntax_listsTitle: 'Senarai',
+  syntax_listsIntro: 'Anda boleh menyusun item dalam senarai bernombor dan tidak bernombor.',
+  syntax_orderedListsTitle: 'Senarai Bernombor',
+  syntax_orderedListsIntro: 'Untuk mencipta senarai bernombor, tambah item baris dengan nombor diikuti titik. Nombor tidak perlu mengikut urutan, tetapi senarai patut bermula dengan nombor satu.',
+  syntax_unorderedListsTitle: 'Senarai Tidak Bernombor',
+  syntax_unorderedListsIntro: 'Untuk mencipta senarai tidak bernombor, tambah sempang (-), asterisk (*), atau tanda tambah (+) di hadapan item baris.',
+  syntax_codeTitle: 'Kod',
+  syntax_codeIntro: 'Untuk menandakan perkataan atau frasa sebagai kod, letakkan dalam backtick (`).',
+  syntax_codeBlocksTitle: 'Blok Kod',
+  syntax_codeBlocksIntro: 'Untuk mencipta blok kod, inden setiap baris blok sekurang-kurangnya empat ruang atau satu tab, atau guna tiga backtick (```) sebelum dan selepas blok kod.',
+  syntax_horizontalRulesTitle: 'Garis Mendatar',
+  syntax_horizontalRulesIntro: 'Untuk mencipta garis mendatar, guna tiga atau lebih asterisk (***), sempang (---), atau garis bawah (___) pada baris sendiri.',
+  syntax_linksTitle: 'Pautan',
+  syntax_linksIntro: 'Untuk mencipta pautan, letakkan teks pautan dalam kurungan (e.g. [Duck Duck Go]) kemudian ikuti dengan URL dalam kurungan (e.g. (https://duckduckgo.com)).',
+  syntax_addingTitlesTitle: 'Menambah Tajuk',
+  syntax_addingTitlesIntro: 'Anda boleh pilihan menambah tajuk untuk pautan. Ini akan muncul sebagai tooltip apabila pengguna melalukan tetikus ke pautan. Untuk menambah tajuk, letakkan dalam tanda petik selepas URL.',
+  syntax_imagesTitle: 'Imej',
+  syntax_imagesIntro: 'Untuk menambah imej, tambah tanda seru (!), diikuti teks alt dalam kurungan, dan laluan atau URL ke aset imej dalam kurungan. Anda boleh pilihan menambah tajuk dalam tanda petik selepas laluan atau URL.',
+  syntax_escapingTitle: 'Melarikan Aksara',
+  syntax_escapingIntro: 'Untuk memaparkan aksara literal yang sebaliknya digunakan untuk memformat teks dalam dokumen Markdown, tambah backslash (\\) di hadapan aksara.',
+  syntax_escapingCharsTitle: 'Aksara Yang Boleh Dilarikan',
+  syntax_escapingCharsIntro: 'Anda boleh guna backslash untuk melarikan aksara berikut:',
+  syntax_backslash: 'backslash',
+  syntax_backtick: 'backtick',
+  syntax_asterisk: 'asterisk',
+  syntax_underscore: 'garis bawah',
+  syntax_curlyBraces: 'kurungan kerawang',
+  syntax_brackets: 'kurungan',
+  syntax_parentheses: 'kurungan',
+  syntax_poundSign: 'tanda paun',
+  syntax_plusSign: 'tanda tambah',
+  syntax_minusSign: 'tanda tolak (sempang)',
+  syntax_dot: 'titik',
+  syntax_exclamationMark: 'tanda seru',
+  syntax_pipe: 'paip',
+  syntax_tablesTitle: 'Jadual',
+  syntax_tablesIntro: 'Untuk menambah jadual, guna tiga atau lebih sempang (---) untuk mencipta header setiap lajur, dan guna paip (|) untuk memisahkan setiap lajur. Anda boleh pilihan menambah paip di kedua-dua hujung jadual.',
+  syntax_alignmentTitle: 'Penjajaran',
+  syntax_alignmentIntro: 'Anda boleh menjajarkan teks dalam lajur ke kiri, kanan, atau tengah dengan menambah kolon (:) di kiri, kanan, atau kedua-dua belah sempang dalam baris header.',
+  syntax_alignLeft: 'Jajar Kiri',
+  syntax_alignCenter: 'Jajar Tengah',
+  syntax_alignRight: 'Jajar Kanan',
+  syntax_left: 'kiri',
+  syntax_center: 'tengah',
+  syntax_right: 'kanan',
+};
+batch('ms', ms);
+
+// Load and apply translations for zh-tw, ar, hi, id, pl, uk, ... from extra-locale-translations.mjs
+const { extraLocaleTranslations } = await import('./extra-locale-translations.mjs');
+for (const [loc, obj] of Object.entries(extraLocaleTranslations)) {
+  batch(loc, obj);
+}
+
+function buildTranslationsExtra() {
+  const out = {};
+  for (const loc of fromFileLocales) {
+    const data = JSON.parse(fs.readFileSync(path.join(messagesDir, `${loc}.json`), 'utf8'));
+    delete data.$schema;
+    out[loc] = data;
+  }
+  for (const loc of extraLocales) {
+    out[loc] = {};
+    for (const k of allKeys) out[loc][k] = getValue(loc, k);
+  }
+  return out;
+}
+const translationsExtra = buildTranslationsExtra();
 
 const translations = {
   fr: {
@@ -3015,10 +3155,17 @@ const translations = {
   },
 };
 
-for (const [locale, map] of Object.entries(translations)) {
+// locale_*: use same values in all locales (no per-language translation)
+const localeKeys = Object.keys(enJson).filter((k) => k.startsWith('locale_'));
+const localeFromEn = {};
+for (const k of localeKeys) localeFromEn[k] = enJson[k];
+
+const allTranslations = { ...translations, ...translationsExtra };
+for (const [locale, map] of Object.entries(allTranslations)) {
   const file = path.join(messagesDir, `${locale}.json`);
   const j = JSON.parse(fs.readFileSync(file, 'utf8'));
   for (const [k, v] of Object.entries(map)) j[k] = v;
+  for (const k of localeKeys) j[k] = localeFromEn[k];
   fs.writeFileSync(file, JSON.stringify(j, null, 2) + '\n', 'utf8');
   console.log(`Updated ${locale}.json`);
 }
