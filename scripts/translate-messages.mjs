@@ -35,6 +35,8 @@ const vi = { nav_ariaEditor: 'Trình soạn thảo Markdown', nav_brand: 'Online
 batch('vi', vi);
 const vi2 = { tools_title: 'Công cụ đề xuất | OnlineMarkdown.com', tools_description: 'Công cụ chúng tôi dùng và đề xuất cho quy trình Markdown—đồng hồ UTC, bộ chuyển múi giờ và hơn thế.', tools_keywords: 'công cụ đề xuất, đồng hồ UTC, bộ chuyển múi giờ, công cụ markdown, công cụ lập trình, công cụ viết', tools_h1: 'Công cụ đề xuất', tools_intro: 'Công cụ chúng tôi dùng và đề xuất cho quy trình Markdown—đồng hồ UTC, bộ chuyển múi giờ và hơn thế.', tools_timeutcnowTitle: 'TimeUTCNow', tools_timeutcnowDesc: 'Đồng hồ UTC trực tiếp và bộ chuyển múi giờ. Xem giờ UTC hiện tại, chuyển giữa các múi giờ và thêm thành phố trên toàn cầu. Cần thiết cho lập trình viên, phi công và bất kỳ ai làm việc xuyên múi giờ.', tools_visitTimeutcnow: 'Truy cập TimeUTCNow.com', tools_suggestTitle: 'Đề xuất công cụ', tools_suggestPrefix: 'Có công cụ nào phù hợp với Markdown hoặc quy trình tài liệu? Cho chúng tôi biết qua trang ', tools_suggestLink: 'Liên hệ', tools_suggestSuffix: ' của chúng tôi.', tools_backGettingStarted: '← Bắt đầu', tools_cheatSheet: 'Cheat Sheet →', tools_md2pdfTitle: 'Markdown sang PDF', tools_md2pdfDesc: 'Chuyển markdown sang PDF trực tuyến miễn phí. Viết hoặc dán Markdown, dùng In → Lưu dưới dạng PDF để xuất. Không cần đăng ký, không cài đặt.', tools_md2pdfCta: 'Chuyển Markdown sang PDF', tools_introPrefix: 'Công cụ chúng tôi dùng và đề xuất—đồng hồ UTC, bộ chuyển múi giờ, ', tools_introLink: 'markdown sang PDF', tools_introSuffix: ', và hơn thế.' };
 batch('vi', vi2);
+const { vi3 } = await import('./vi-extra-translations.mjs');
+batch('vi', vi3);
 
 // ms: Malay (Bahasa Melayu) – nav, footer, syntax page and common keys
 const ms = {
