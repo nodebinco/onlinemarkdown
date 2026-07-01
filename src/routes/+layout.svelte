@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import { page } from '$app/stores';
   import { locales, localizeHref } from '$lib/paraglide/runtime';
   import * as m from '$lib/paraglide/messages';
@@ -6,11 +7,46 @@
   import Footer from '$lib/components/Footer.svelte';
   import { Menu, X } from 'lucide-svelte';
 
+  const AD_BLOCK_CHECKER_URL = 'https://cdn.jsdelivr.net/npm/adblock-checker@0.2.4/+esm';
+
   let mobileMenuOpen = $state(false);
   let localeOpen = $state(false);
   let localeDropdownEl: HTMLDivElement | null = $state(null);
+  let adblockDetected = $state(false);
+  let checkingAdblock = $state(false);
 
   const locale = $derived($page.data?.locale ?? 'en');
+  const adblockCopy = $derived.by(() => {
+    if (locale.startsWith('th')) {
+      return {
+        title: 'ตรวจพบ AdBlock',
+        message:
+          'เว็บไซต์นี้ต้องใช้การแสดงผลโฆษณาบางส่วนเพื่อให้บริการต่อได้ กรุณาปิดส่วนขยายบล็อกโฆษณาและโหลดใหม่',
+        stepsTitle: 'วิธีปิด AdBlock แบบเร็ว',
+        steps: [
+          'กดไอคอนส่วนขยาย AdBlock/uBlock บนเบราว์เซอร์',
+          'เลือก Pause หรือ Disable สำหรับเว็บไซต์นี้',
+          'รีเฟรชหน้า แล้วกดปุ่มตรวจสอบอีกครั้ง',
+        ],
+        recheck: 'ตรวจสอบอีกครั้ง',
+        checking: 'กำลังตรวจสอบ...',
+      };
+    }
+
+    return {
+      title: 'Ad blocker detected',
+      message:
+        'This site relies on ad delivery for essential functionality. Please disable your ad blocker for this website and reload.',
+      stepsTitle: 'Quick steps to disable ad blocker',
+      steps: [
+        'Click your AdBlock/uBlock extension icon in the browser toolbar.',
+        'Choose Pause or Disable on this site.',
+        'Refresh the page, then press Recheck.',
+      ],
+      recheck: 'Recheck',
+      checking: 'Checking...',
+    };
+  });
 
   const localeNames: Record<string, string> = {
     en: 'English',
@@ -73,6 +109,24 @@
     localeOpen = !localeOpen;
   };
 
+  const runAdblockCheck = async () => {
+    checkingAdblock = true;
+    try {
+      const { checkAdBlock } = (await import(AD_BLOCK_CHECKER_URL)) as {
+        checkAdBlock: () => Promise<boolean>;
+      };
+      adblockDetected = await checkAdBlock();
+    } catch {
+      adblockDetected = false;
+    } finally {
+      checkingAdblock = false;
+    }
+  };
+
+  onMount(() => {
+    void runAdblockCheck();
+  });
+
   $effect(() => {
     if (typeof document === 'undefined') return;
     const open = localeOpen;
@@ -85,6 +139,12 @@
     };
     document.addEventListener('mousedown', handleMouseDown);
     return () => document.removeEventListener('mousedown', handleMouseDown);
+  });
+
+  $effect(() => {
+    if (typeof document === 'undefined') return;
+    document.body.classList.toggle('overflow-hidden', adblockDetected);
+    return () => document.body.classList.remove('overflow-hidden');
   });
 </script>
 
@@ -207,6 +267,39 @@
   {/if}
 
   <main class="flex-1"><slot /></main>
+
+  {#if adblockDetected}
+    <div class="fixed inset-0 z-[100] flex items-center justify-center bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.25),rgba(0,0,0,0.88)_55%)] p-4 backdrop-blur-sm">
+      <div class="w-full max-w-lg rounded-2xl border border-white/15 bg-white/95 p-6 text-zinc-900 shadow-[0_20px_60px_rgba(0,0,0,0.45)]">
+        <div class="mb-4 inline-flex items-center rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-amber-700">
+          AdBlock Protection
+        </div>
+
+        <h2 class="text-2xl font-extrabold tracking-tight text-zinc-900">{adblockCopy.title}</h2>
+        <p class="mt-3 text-sm leading-6 text-zinc-700">{adblockCopy.message}</p>
+
+        <div class="mt-5 rounded-xl border border-zinc-200 bg-zinc-50 p-4">
+          <p class="text-sm font-semibold text-zinc-900">{adblockCopy.stepsTitle}</p>
+          <ol class="mt-2 list-decimal space-y-1 pl-5 text-sm leading-6 text-zinc-700">
+            {#each adblockCopy.steps as step}
+              <li>{step}</li>
+            {/each}
+          </ol>
+        </div>
+
+        <div class="mt-5 flex flex-wrap gap-3">
+          <button
+            type="button"
+            class="rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-zinc-700 disabled:cursor-not-allowed disabled:bg-zinc-400"
+            onclick={() => void runAdblockCheck()}
+            disabled={checkingAdblock}
+          >
+            {checkingAdblock ? adblockCopy.checking : adblockCopy.recheck}
+          </button>
+        </div>
+      </div>
+    </div>
+  {/if}
 
   {#if $page.url.pathname !== '/' && !/^\/[a-z]{2}(-[a-z]+)?\/?$/.test($page.url.pathname)}
     <Footer {locale} />
