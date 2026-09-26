@@ -2,6 +2,8 @@
   import { page } from '$app/stores';
   import * as m from '$lib/paraglide/messages';
   import { localizeHref } from '$lib/paraglide/runtime';
+  import AdUnit from '$lib/components/AdUnit.svelte';
+  import { AD_SLOTS } from '$lib/ads';
 
   const locale = $derived($page.data?.locale ?? 'en');
 </script>
@@ -19,6 +21,8 @@
       >{m.tools_introLink({}, { locale: locale })}</a
     >{m.tools_introSuffix({}, { locale: locale })}
   </p>
+
+  <AdUnit slot={AD_SLOTS.inArticle} class="mb-8" />
 
   <div class="prose prose-lg max-w-none">
     <div class="not-prose mb-8">

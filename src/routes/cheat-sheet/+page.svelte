@@ -1,6 +1,8 @@
 <script lang="ts">
   import { page } from '$app/stores';
   import * as m from '$lib/paraglide/messages';
+  import AdUnit from '$lib/components/AdUnit.svelte';
+  import { AD_SLOTS } from '$lib/ads';
 
   const locale = $derived($page.data?.locale ?? 'en');
 </script>
@@ -158,6 +160,8 @@
         </table>
       </div>
     </div>
+
+    <AdUnit slot={AD_SLOTS.inArticle} class="my-8 not-prose" />
 
     <div class="mt-8">
       <h2 class="mb-4 text-2xl font-bold">{m.cheatSheet_examplesTitle({}, { locale: locale })}</h2>

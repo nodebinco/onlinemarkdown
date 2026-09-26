@@ -1,6 +1,8 @@
 <script lang="ts">
   import { page } from '$app/stores';
   import * as m from '$lib/paraglide/messages';
+  import AdUnit from '$lib/components/AdUnit.svelte';
+  import { AD_SLOTS } from '$lib/ads';
 
   const locale = $derived($page.data?.locale ?? 'en');
 </script>
@@ -112,6 +114,8 @@
       </div>
     </div>
   </section>
+
+  <AdUnit slot={AD_SLOTS.inArticle} class="my-8" />
 
   <section id="emphasis" class="mb-8">
     <h2 class="text-2xl font-bold mt-8 mb-4 pb-2 border-b border-gray-200">{m.syntax_emphasisTitle({}, { locale: locale })}</h2>

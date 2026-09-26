@@ -2,6 +2,8 @@
   import { page } from '$app/stores';
   import * as m from '$lib/paraglide/messages';
   import { localizeHref } from '$lib/paraglide/runtime';
+  import AdUnit from '$lib/components/AdUnit.svelte';
+  import { AD_SLOTS } from '$lib/ads';
 
   const locale = $derived($page.data?.locale ?? 'en');
 </script>
@@ -103,6 +105,8 @@
         </tbody>
       </table>
     </div>
+
+    <AdUnit slot={AD_SLOTS.inArticle} class="my-8 not-prose" />
 
     <h2 class="mt-8 mb-4 border-b border-gray-200 pb-2 text-2xl font-bold">
       {m.gettingStarted_bestPracticesTitle({}, { locale: locale })}
