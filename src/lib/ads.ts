@@ -7,8 +7,6 @@ export const ADSENSE_CLIENT = 'ca-pub-7058302262735531';
  * Empty string = that placement is skipped.
  */
 export const AD_SLOTS = {
-  /** Under editor toolbar — most pageviews */
-  editor: '9196261876',
   /** Mid-scroll on docs / tools pages */
   inArticle: '9196261876',
   /** Above footer on content pages */

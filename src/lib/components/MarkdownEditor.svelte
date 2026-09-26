@@ -5,8 +5,6 @@
   import MarkdownPreview from './MarkdownPreview.svelte';
   import MarkdownToolbar from './MarkdownToolbar.svelte';
   import FileSidebar from './FileSidebar.svelte';
-  import AdUnit from './AdUnit.svelte';
-  import { AD_SLOTS } from '$lib/ads';
   import { genFileId } from '$lib/utils';
 
   const locale = $derived($page.data?.locale ?? 'en');
@@ -316,8 +314,6 @@ Start writing Markdown at [Online Markdown Editor](https://onlinemarkdown.com) a
     onUndo={handleUndo}
     onRedo={handleRedo}
   />
-
-  <AdUnit slot={AD_SLOTS.editor} class="shrink-0 border-b border-gray-200 bg-white px-2 py-1" />
 
   <div class="flex flex-1 overflow-hidden">
     {#if isSidebarOpen}

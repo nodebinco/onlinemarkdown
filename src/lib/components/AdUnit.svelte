@@ -22,7 +22,7 @@
 </script>
 
 {#if slot}
-  <div class="ad-unit min-h-[90px] w-full overflow-hidden {className}">
+  <div class="ad-unit w-full overflow-hidden {className}">
     <ins
       class="adsbygoogle"
       style="display:block"
